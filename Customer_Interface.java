@@ -26,7 +26,7 @@ public class Customer_Interface {
 	{
 		
 	}
-	private void print_ordered_list(string file_list)
+	private void print_ordered_list(String file_list)
 	{
 		
 	}

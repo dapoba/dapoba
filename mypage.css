@@ -1,0 +1,76 @@
+body {
+  min-height: 2000px;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+h4 {
+  margin-top: 25px;
+}
+.row {
+  margin-bottom: 20px;
+}
+.row .row {
+  margin-top: 0px;
+  margin-bottom: 0;
+}
+[class*="col-"] {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+hr {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.select-box {
+  background-color: #EAEAEA;
+  background-color: rgba(234,234,234,0.50);
+  border: 1px solid #D5D5D5;
+  border: 1px solid rgba(213,213,213,1.000);
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:7px;
+  padding-right:7px;
+  margin-bottom:10px;
+}
+.sign-in-form {
+  width:170px;
+  display: inline-block;
+  margin:10px;
+}
+
+.a {
+    width:70px;
+    display: inline-block;
+}
+
+.center-align {
+  text-align: center;
+}
+
+.form-box {
+  margin-top: 50px;
+}
+
+.no-padding {
+  padding:0;
+}
+
+.no-left-padding {
+  padding-left:0;
+}
+
+.no-right-padding {
+  padding-right:0;
+}
+.underline {
+  display: block;
+  padding-bottom: 5px;
+  margin-top: 12px;
+  margin-bottom: 15px;
+  line-height: inherit;
+  color: #4C4C4C;
+  border: 0;
+  border-bottom: 1px solid #e5e5e5;
+}

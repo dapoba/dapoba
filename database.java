@@ -21,6 +21,81 @@ public class database
 		catch(ClassNotFoundException| SQLException e)
 		{ e.printStackTrace(); }
 	}
+	static Cash database_cash(String bankName){
+		Cash c = new Cash();
+		try{
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = "Use dapoba_database";
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			sql = "select * from Cash where bank_name = " + bankName;
+			rs = stmt.executeQuery(sql);
+			c.account_holder_name = rs.getString("account_holder_name");
+			c.account_number = rs.getString("account_number");
+			c.bank_name = rs.getString("bank_name");
+			stmt.close(); 
+			conn.close(); // close
+		}
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }
+		return c;
+	}
+	static void database_milege(String id, int milege){
+		try{
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = "Use dapoba_database";
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			sql = "update Mileage/Coin set Milage = "+String.valueOf(milege)+"where ID = "+id;
+			rs = stmt.executeQuery(sql);
+			stmt.close(); 
+			conn.close(); // close
+		}
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }
+	}
+	static void database_coin(String id, int coin){
+		try{
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = "Use dapoba_database";
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			sql = "update Mileage/Coin set Coin = "+String.valueOf(coin)+"where ID = "+id;
+			rs = stmt.executeQuery(sql);
+			stmt.close(); 
+			conn.close(); // close
+		}
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }
+	}
+	static boolean database_check_verification(int num){
+		boolean flag=true;
+		try{
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = "Use dapoba_database";
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			sql = "select verification_number from Cabinet";
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) 
+			{ 
+				if(num == rs.getInt("verification_number"))
+					flag = false; 
+			} 
+			stmt.close(); 
+			conn.close(); // close
+		}
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }
+	
+		return flag;
+	}
+	
+	
+	
+	
+	
+	
 	static void database_func()  
 	{ 
 		

@@ -1,7 +1,24 @@
+package test;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Scanner;
-public class File {
 
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
+
+/**
+ * Servlet implementation class File
+ */
+@WebServlet("/File")
+@MultipartConfig(maxFileSize=1024*1024*2, location="C:\\file")
+public class File extends HttpServlet {
 	public String filename;
 	private String file_extension;
 	public String file_list[]=new String [100];
@@ -56,6 +73,7 @@ public class File {
 		
 		return file_list;
 	}
+	
 	private void store_file() throws SQLException
 	{
 		//DB에 파일의 이름, 확장자 등을 저장함. 
@@ -68,4 +86,58 @@ public class File {
 		db.stmt.close(); 
 		db.conn.close(); // close
 	}
+	
+	private String getFilename(Part part)
+	{
+		String fileName=null;
+		String contentDispositionHeader=part.getHeader("content-disposition");
+		String [] elements=contentDispositionHeader.split(";");
+		for(String element:elements)
+		{
+			if(element.trim().startsWith("filename")){
+				fileName=element.substring(element.indexOf('=')+1);
+				fileName=fileName.trim().replace("\"", "");
+			}
+		}
+		return fileName;
+	}
+	
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public File() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("EUC-KR");
+		Part part=request.getPart("ex_filename");
+		String fileName=getFilename(part);
+		if(fileName!=null && !fileName.isEmpty())
+		{
+			part.write(fileName);
+		}
+		//String author=request.getParameter("theAuthor");
+		//author=new String (author.getBytes("iso-8859-1"),"EUC-KR");
+		response.setContentType("text/html); charset=EUC-KR");
+		PrintWriter out= response.getWriter();
+		
+		//out.print("작성자 " +author+"<br>");
+		out.print("파일명 " + fileName+"<br>");
+		out.print("파일크기 "+part.getSize()+"<br>");
+	}
+	
 }

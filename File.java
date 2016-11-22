@@ -138,6 +138,7 @@ public class File extends HttpServlet {
 		//out.print("작성자 " +author+"<br>");
 		out.print("파일명 " + fileName+"<br>");
 		out.print("파일크기 "+part.getSize()+"<br>");
+		//이전 화면으로 돌아가기 
 	}
 	
 }

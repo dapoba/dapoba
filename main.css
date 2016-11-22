@@ -1,0 +1,39 @@
+body {
+  min-height: 1400px;
+}
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+.menu_box {
+  margin-top: 30px;
+  padding: 80px 70px 70px 150px;
+  height:700px;
+  border:0px solid #dcdcdc;
+}
+.my_info_box {
+  margin-top: 30px;
+  padding: 60px 30px;
+  height:700px;
+  border:0px solid #dcdcdc;
+}
+.my_info_contents {
+  font-size: 18px;
+  width: 300px;
+  height:320px;
+  padding: 45px;
+  background-color: #F6F6F6;
+  border:1px solid #dcdcdc;
+}
+
+.first-row {
+  margin-top: 0px;
+}
+.second-row {
+
+}
+.border-0 > .btn1 {
+  border:0px;
+}
+.btn1~.aaa{
+  width: 215px;
+}

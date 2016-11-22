@@ -40,33 +40,37 @@ public class database
 		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }
 		return c;
 	}
-	static void database_milege(String id, int milege){
+	static void database_milege_coin(String id, String type, int payment){
 		try{
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
 			String sql = "Use dapoba_database";
 			stmt = conn.createStatement();
 			stmt.execute(sql);
-			sql = "update Mileage/Coin set Milage = "+String.valueOf(milege)+"where ID = "+id;
+			sql = "update Mileage/Coin set"+type+" = "+String.valueOf(payment)+"where ID = "+id;
 			rs = stmt.executeQuery(sql);
 			stmt.close(); 
 			conn.close(); // close
 		}
 		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }
 	}
-	static void database_coin(String id, int coin){
+	static int[] database_get_milege_coin(String id){
 		try{
+			int[] milege_coin = new int[2];
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
 			String sql = "Use dapoba_database";
 			stmt = conn.createStatement();
 			stmt.execute(sql);
-			sql = "update Mileage/Coin set Coin = "+String.valueOf(coin)+"where ID = "+id;
+			sql = "select * from Mileage/Coin where id = " + id;
 			rs = stmt.executeQuery(sql);
+			milege_coin[0] = rs.getInt("Coin");
+			milege_coin[1] = rs.getInt("Mileage");
 			stmt.close(); 
-			conn.close(); // close
+			conn.close();// close
+			return milege_coin;
 		}
-		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); return null;}
 	}
 	static boolean database_check_verification(int num){
 		boolean flag=true;

@@ -35,7 +35,7 @@ hr {
   margin-bottom:10px;
 }
 .option_preview {
-  height: 441px;
+  height: 533px;
   background-color: #EAEAEA;
   background-color: rgba(234,234,234,0.50);
   border: 1px solid #D5D5D5;
@@ -116,6 +116,6 @@ fieldset[disabled] .btn-custom.focus {
 .btn-big {
   font-size: 24px;
   padding: 15px 70px;
-  margin-left: 55px;
+  margin-left: 60px;
   margin-top: -30px;;
 }

@@ -64,3 +64,8 @@ hr {
 .no-right-padding {
   padding-right:0;
 }
+
+.margin-custom {
+  margin-top: -25px;
+  margin-bottom: -20px;
+}

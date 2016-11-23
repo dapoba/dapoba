@@ -25,11 +25,9 @@ public class File extends HttpServlet {
 	database db= new database();
 	public void delete_file() throws SQLException
 	{
-		//Á¤¸» Áö¿ï°Å³Ä´Â UI¶ç¿ì±â
-		//ÇØ´ç ÆÄÀÏ DB¿¡¼­ Áö¿ì±â
-		System.out.println("Á¤¸» "+filename+"À» Áö¿ì½Ã°Ú½À´Ï±î?");
-		//¿¹¶ó°í ¼±ÅÃÇÑ´Ù¸é »èÁ¦ ÁøÇà
-		//¾Æ´Ï¶ó¸é ÇÔ¼ö Á¾·á
+		//ì •ë§ ì§€ìš¸ê±°ëƒëŠ” UIë„ìš°ê¸°
+		//í•´ë‹¹ íŒŒì¼ DBì—ì„œ ì§€ìš°ê¸°
+		System.out.println("ì •ë§ "+filename+"ì„ ì§€ìš°ì‹œê² ìŠµë‹ˆê¹Œ?");
 		Scanner in=new Scanner(System.in);
 		String answer=null;
 		answer=in.nextLine();
@@ -40,31 +38,31 @@ public class File extends HttpServlet {
 			db.stmt.execute(sql);
 			db.stmt.close(); 
 			db.conn.close(); // close
-			System.out.println("ÆÄÀÏ »èÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+			System.out.println("íŒŒì¼ ì‚­ì œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 			return ;
 		}
 		else return;
 	}
 	public String[] select_file() throws SQLException
 	{
-		//UIÆÄÀÏ °Ë»öÃ¢¿¡¼­ ÆÄÀÏ¸®½ºÆ®µé ¼±ÅÃ
-		//¹®¼­ È¨ÆäÀÌÁö¿¡ ÀúÀåÇÔ. store_file()È£Ãâ, ÆÄÀÏ ÇÏ³ª ÇÏ³ª¿¡ ´ëÇÑ store_fileÈ£ÃâÇØ¾ßÇÔ.
-		//ÆÄÀÏÀÇ ÀÌ¸§ ¸®½ºÆ® ¹İÈ¯ÇÔ. 
+		//UIíŒŒì¼ ê²€ìƒ‰ì°½ì—ì„œ íŒŒì¼ë¦¬ìŠ¤íŠ¸ë“¤ ì„ íƒ
+		//ë¬¸ì„œ í™ˆí˜ì´ì§€ì— ì €ì¥í•¨. store_file()í˜¸ì¶œ, íŒŒì¼ í•˜ë‚˜ í•˜ë‚˜ì— ëŒ€í•œ store_fileí˜¸ì¶œí•´ì•¼í•¨.
+		//íŒŒì¼ì˜ ì´ë¦„ ë¦¬ìŠ¤íŠ¸ ë°˜í™˜í•¨. 
 		File file[]=new File[20];
-		//UI ÆÄÀÏ Å½»öÃ¢¿¡¼­ ÆÄÀÏ ¸®½ºÆ®¸¦ ¹Ş¾Æ¿Ô´Ù°í °¡Á¤ÇÔ. 
-		//filename¿¡ ÆÄÀÏ ÀÌ¸§ ÀúÀåÇÔ. 
+		//UI íŒŒì¼ íƒìƒ‰ì°½ì—ì„œ íŒŒì¼ ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ì•„ì™”ë‹¤ê³  ê°€ì •í•¨. 
+		//filenameì— íŒŒì¼ ì´ë¦„ ì €ì¥í•¨. 
 		int i=0;
 		while(true)
 		{
-			file_list[i]="ÆÄÀÏ ÀÌ¸§ ÀúÀåÇÏ±â";
+			file_list[i]="íŒŒì¼ ì´ë¦„ ì €ì¥í•˜ê¸°";
 			i++;
-			//´õÀÌ»ó ¼±ÅÃÇÑ ÆÄÀÏÀÌ ¾øÀ» ¶§±îÁö °Ô¼ÓÇØ¼­ while¹® µ¹¸². 
-			//UI±¸Çö ÈÄ ÀÌ ºÎºĞ ±¸ÇöÇÒ ¿¹Á¤ÀÓ. 
+			//ë”ì´ìƒ ì„ íƒí•œ íŒŒì¼ì´ ì—†ì„ ë•Œê¹Œì§€ ê²Œì†í•´ì„œ whileë¬¸ ëŒë¦¼. 
+			//UIêµ¬í˜„ í›„ ì´ ë¶€ë¶„ êµ¬í˜„í•  ì˜ˆì •ì„. 
 			if(file_list[i]==null)
 				break;
 		}
 		i=0;
-		//file_extension¿¡ È®ÀåÀÚ ÀúÀåÇÔ. 
+		//file_extensionì— í™•ì¥ì ì €ì¥í•¨. 
 		while(file[i].filename!=null)
 		{
 			file[i].store_file();
@@ -76,13 +74,13 @@ public class File extends HttpServlet {
 	
 	private void store_file() throws SQLException
 	{
-		//DB¿¡ ÆÄÀÏÀÇ ÀÌ¸§, È®ÀåÀÚ µîÀ» ÀúÀåÇÔ. 
-		//ÀúÀå¿Ï·á UIÃâ·ÂÇÔ. 
+		//DBì— íŒŒì¼ì˜ ì´ë¦„, í™•ì¥ì ë“±ì„ ì €ì¥í•¨. 
+		//ì €ì¥ì™„ë£Œ UIì¶œë ¥í•¨. 
 		db.database_use();
-		//sql¹® ´Ù½Ã ÀÛ¼º=>fileÅ×ÀÌºí ÀÛ¼º
+		//sqlë¬¸ ë‹¤ì‹œ ì‘ì„±=>fileí…Œì´ë¸” ì‘ì„±
 		String sql="insert (into my_table (id, first_name, email) values " + "(1, \"woongjin\", \"finalboogi@naver.com\")"; 		
 		db.stmt.execute(sql);
-		System.out.println("ÀúÀåÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+		System.out.println("ì €ì¥ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 		db.stmt.close(); 
 		db.conn.close(); // close
 	}
@@ -135,10 +133,10 @@ public class File extends HttpServlet {
 		response.setContentType("text/html); charset=EUC-KR");
 		PrintWriter out= response.getWriter();
 		
-		//out.print("ÀÛ¼ºÀÚ " +author+"<br>");
-		out.print("ÆÄÀÏ¸í " + fileName+"<br>");
-		out.print("ÆÄÀÏÅ©±â "+part.getSize()+"<br>");
-		//ÀÌÀü È­¸éÀ¸·Î µ¹¾Æ°¡±â 
+		//out.print("ì‘ì„±ì " +author+"<br>");
+		out.print("íŒŒì¼ëª… " + fileName+"<br>");
+		out.print("íŒŒì¼í¬ê¸° "+part.getSize()+"<br>");
+		//ì´ì „ í™”ë©´ìœ¼ë¡œ ëŒì•„ê°€ê¸° 
 	}
 	
 }

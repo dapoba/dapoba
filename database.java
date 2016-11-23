@@ -94,7 +94,54 @@ public class database
 	
 		return flag;
 	}
+	static boolean database_card_info(int cardNum, String bankName, String date, int password){
+		boolean flag;
+		try{
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = "Use dapoba_database";
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			sql = "select * from Credit_Card where Credit_card_number = " + String.valueOf(cardNum);
+			rs = stmt.executeQuery(sql);
+			
+			if(rs.next() == false)
+				flag = false;
+			else{
+				if(bankName == rs.getString("Type") && date == rs.getString("ExpDate") && password == rs.getInt("Credit_card_password"))
+					flag = true;
+				else
+					flag = false;
+			}
+			stmt.close(); 
+			conn.close(); // close
+		}
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); flag = false; }
 	
+		return flag;
+	}
+	static boolean database_card_balance(int cardNum, int money){
+		boolean flag;
+		try{
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = "Use dapoba_database";
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			sql = "select Balance from Credit_Card where Credit_card_number = " + String.valueOf(cardNum);
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			if(money <= rs.getInt("Balance"))
+				flag = true;
+			else
+				flag = false;
+			stmt.close(); 
+			conn.close(); // close
+		}
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); flag = false; }
+	
+		return flag;
+	}
 	
 	
 	

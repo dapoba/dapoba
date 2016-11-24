@@ -8,13 +8,13 @@
     <meta name="author" content="YoonJiHyun">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>DAPOBA</title>
+    <title>카드 결제</title>
 
     <link href="bootstrap.css" rel="stylesheet">
     <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="main.css" rel="stylesheet">
-    <link href="custom.min.css" rel="stylesheet">
+    <link href="payment-card.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
   </head>
 
   <body>
@@ -60,35 +60,50 @@
 
     <div class="container">
       <div class="row">
-          <div class="col-md-offset-2 col-md-8 my_info_box">
-            <div class="my_info_contents">
-              <div class="">
-                <h4>출력물 예약 사이트 DAPOBA</h4>
-                <span>OOO</span>님 반갑습니다.
-              </div>
-              <div class="linear">
-
-              </div>
-              <div>
-                <br>마일리지 <span>OOO</span> P / 코인 <span>OOO</span> P　<a href="charge-coin.html" class="btn1 btn-default1">충전</a> <br><br>
-              </div>
-              <div>
-                <a href="mypage.html" class="btn1 btn-default1">마이페이지</a>
+        <div class="col-md-10 col-md-offset-2">
+          <h4>카드 결제</h4>
+        </div>
+      </div>
+        <form class="form-horizontal col-md-6 col-md-offset-3 well select-box">
+          <fieldset>
+            <div class="form-group">
+              <label for="inputID" class="col-md-2 control-label"><b>카드명</b></label>
+              <div class="col-md-9">
+                <select class="form-control" id="select" required>
+                  <option>신한카드</option>
+                  <option>국민카드</option>
+                  <option>우리카드</option>
+                </select>
               </div>
             </div>
-          </div>
-      </div>
-      <div class="row">
-        <div class="col-md-offset-2 col-md-8 menu_box">
-          <p>
-            <a href="file.html" class="btn1 btn-default1 menu_box_btn" id="custom_btn">　문서함　<img src="img/icon/file-1.png" class="main-logo" width="65px" height="65px"></a>
-            <a href="#" class="btn1 btn-info1 menu_box_btn" id="custom_btn">　출력하기　<img src="img/icon/printer-1.png" class="main-logo" width="65px" height="65px"></a>
-          </p>
-          <p>
-            <a href="coin-milege.html" class="btn1 btn-warning1 menu_box_btn" id="custom_btn">코인/마일리지 <img src="img/icon/coin.png" class="main-logo" width="70px" height="65px"></a>
-            <a href="qna-board.html" class="btn1 btn-success1 menu_box_btn" id="custom_btn">고객센터</a>
-          </p>
-        </div>
+            <div class="form-group">
+              <label for="inputCardNumber" class="col-md-2 control-label"><b>카드번호</b></label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="inputCardNumber" placeholder="Card Number" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputPassword" class="col-md-2 control-label"><b>비밀번호</b></label>
+              <div class="col-md-9">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputValidDate" class="col-md-2 control-label"><b>유효기간</b></label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="inputValidDate" placeholder="Valid Date" required>
+              </div>
+              <div class="row">
+                <div class="col-md-offset-2 col-md-8 margin-custom"><span class="help-block">　(MONTH/YEAR 순으로 네자리 숫자를 연속하여 입력)</span></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-8 col-md-offset-2">
+                <input type="submit" class="btn1" value="입력 완료"></input>
+              </div>
+            </div>
+          </fieldset>
+        </form>
       </div>
     </div> <!-- /container -->
 

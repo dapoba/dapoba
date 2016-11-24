@@ -8,13 +8,13 @@
     <meta name="author" content="YoonJiHyun">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>DAPOBA</title>
+    <title>무통장 입금</title>
 
     <link href="bootstrap.css" rel="stylesheet">
     <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="main.css" rel="stylesheet">
-    <link href="custom.min.css" rel="stylesheet">
+    <link href="payment-cash.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
   </head>
 
   <body>
@@ -60,34 +60,23 @@
 
     <div class="container">
       <div class="row">
-          <div class="col-md-offset-2 col-md-8 my_info_box">
-            <div class="my_info_contents">
-              <div class="">
-                <h4>출력물 예약 사이트 DAPOBA</h4>
-                <span>OOO</span>님 반갑습니다.
-              </div>
-              <div class="linear">
-
-              </div>
-              <div>
-                <br>마일리지 <span>OOO</span> P / 코인 <span>OOO</span> P　<a href="charge-coin.html" class="btn1 btn-default1">충전</a> <br><br>
-              </div>
-              <div>
-                <a href="mypage.html" class="btn1 btn-default1">마이페이지</a>
-              </div>
-            </div>
-          </div>
+        <div class="col-md-10 col-md-offset-2">
+          <h4>무통장 입금</h4>
+        </div>
       </div>
-      <div class="row">
-        <div class="col-md-offset-2 col-md-8 menu_box">
-          <p>
-            <a href="file.html" class="btn1 btn-default1 menu_box_btn" id="custom_btn">　문서함　<img src="img/icon/file-1.png" class="main-logo" width="65px" height="65px"></a>
-            <a href="#" class="btn1 btn-info1 menu_box_btn" id="custom_btn">　출력하기　<img src="img/icon/printer-1.png" class="main-logo" width="65px" height="65px"></a>
-          </p>
-          <p>
-            <a href="coin-milege.html" class="btn1 btn-warning1 menu_box_btn" id="custom_btn">코인/마일리지 <img src="img/icon/coin.png" class="main-logo" width="70px" height="65px"></a>
-            <a href="qna-board.html" class="btn1 btn-success1 menu_box_btn" id="custom_btn">고객센터</a>
-          </p>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 select-box optional-border">
+            <h6><b>입금하실 은행명을 선택해주세요.</b></h6>
+            <form action=""><br>
+              <select class="form-control" id="select">
+                <option>신한은행</option>
+                <option>국민은행</option>
+                <option>우리은행</option>
+              </select>
+            </form>
+            <br><br>
+            <input type="submit" class="btn1" id="power-center" value="선택 완료"></input>
+          </div>
         </div>
       </div>
     </div> <!-- /container -->

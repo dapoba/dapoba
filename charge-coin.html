@@ -8,13 +8,13 @@
     <meta name="author" content="YoonJiHyun">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>DAPOBA</title>
+    <title>코인 충전</title>
 
     <link href="bootstrap.css" rel="stylesheet">
     <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="main.css" rel="stylesheet">
-    <link href="custom.min.css" rel="stylesheet">
+    <link href="charge-coin.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
   </head>
 
   <body>
@@ -60,34 +60,27 @@
 
     <div class="container">
       <div class="row">
-          <div class="col-md-offset-2 col-md-8 my_info_box">
-            <div class="my_info_contents">
-              <div class="">
-                <h4>출력물 예약 사이트 DAPOBA</h4>
-                <span>OOO</span>님 반갑습니다.
-              </div>
-              <div class="linear">
-
-              </div>
-              <div>
-                <br>마일리지 <span>OOO</span> P / 코인 <span>OOO</span> P　<a href="charge-coin.html" class="btn1 btn-default1">충전</a> <br><br>
-              </div>
-              <div>
-                <a href="mypage.html" class="btn1 btn-default1">마이페이지</a>
-              </div>
-            </div>
-          </div>
+        <div class="col-md-10 col-md-offset-2">
+          <h4>코인 충전</h4>
+        </div>
       </div>
-      <div class="row">
-        <div class="col-md-offset-2 col-md-8 menu_box">
-          <p>
-            <a href="file.html" class="btn1 btn-default1 menu_box_btn" id="custom_btn">　문서함　<img src="img/icon/file-1.png" class="main-logo" width="65px" height="65px"></a>
-            <a href="#" class="btn1 btn-info1 menu_box_btn" id="custom_btn">　출력하기　<img src="img/icon/printer-1.png" class="main-logo" width="65px" height="65px"></a>
-          </p>
-          <p>
-            <a href="coin-milege.html" class="btn1 btn-warning1 menu_box_btn" id="custom_btn">코인/마일리지 <img src="img/icon/coin.png" class="main-logo" width="70px" height="65px"></a>
-            <a href="qna-board.html" class="btn1 btn-success1 menu_box_btn" id="custom_btn">고객센터</a>
-          </p>
+        <div class="row">
+          <div class="col-md-4 col-md-offset-2 select-box optional-border">
+            <h6><b>구매하실 코인 수를 선택하세요.</b></h6>
+            <form action=""><br>
+              <input type="radio" name="coin" value="500" id="radio-design">　500 coin (1,000원)<br>
+              <input type="radio" name="coin" value="2000" id="radio-design">　1000 coin (2,000원)<br>
+              <input type="radio" name="coin" value="1000" id="radio-design">　2000 coin (4,000원)<br>
+              <input type="radio" name="coin" value="4000" id="radio-design">　4000 coin (8,000원)<br>
+              <input type="radio" name="coin" value="5000" id="radio-design">　5000 coin (10,000원)<br><br>
+          </div>
+          <div class="col-md-4 select-box">
+            <h6><b>결제 수단을 선택하세요.</b></h6><br>
+              <input type="radio" name="pay_method" value="cash" id="radio-design">　무통장 입금<br>
+              <input type="radio" name="pay_method" value="card" id="radio-design">　카드 결제<br><br>
+            </form>
+            <input type="submit" class="btn1" value="결제"></input>
+          </div>
         </div>
       </div>
     </div> <!-- /container -->

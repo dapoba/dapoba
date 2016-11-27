@@ -32,16 +32,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="main.html">DAPOBA</a>
+          <a class="navbar-brand" href="#">DAPOBA</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">홈</a></li>
-            <li><a href="fileupload.html">문서함</a></li>
+            <li><a href="#about">문서함</a></li>
             <li><a href="#contact">출력</a></li>
-            <li><a href="coin-milege.html">코인/마일리지</a></li>
-            <li><a href="qna-board.html">고객센터</a></li>
-            <!--li class="dropdown">
+            <li><a href="#contact">코인/마일리지</a></li>
+            <li><a href="#contact">고객센터</a></li>
+            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Action</a></li>
@@ -52,11 +52,11 @@
                 <li><a href="#">Separated link</a></li>
                 <li><a href="#">One more separated link</a></li>
               </ul>
-            </li-->
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="user_name"><a>OOO님</a></li>
-            <li class=""><a href="mypage.html">마이페이지 <span class="sr-only">(current)</span></a></li>
+            <li class=""><a href="./">마이페이지 <span class="sr-only">(current)</span></a></li>
             <li><a href="./">로그아웃</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -68,26 +68,31 @@
         <div class="col-md-10 col-md-offset-2">
           <h4>출력물 옵션 선택</h4>
         </div>
+<<<<<<< HEAD
         <form id="target" action="payment-info.html">
           <div class="col-md-4 col-md-offset-2">
+=======
+        <div class="col-md-4 col-md-offset-2">
+>>>>>>> 15262cf16b869af05b74081fb96044895af2983b
 
-            <div class="select-box select-place">
-              <div><b>출력장소 선택</b></div>
-              <lable class="radio-inline" id="radio-design">
-                <input type="radio" name="option_place" id="option_new_engineering_building" value="option_new_engineering_building" checked="checked">
-                신공학관
-              </lable>
-              <lable class="radio-inline" id="radio-design">
-                <input type="radio" name="option_place" id="option_hyehwa" value="option_hyehwa">
-                혜화관
-              </lable>
-              <lable class="radio-inline" id="radio-design">
-                <input type="radio" name="option_place" id="option_myeongjin" value="option_myeongjin">
-                명진관
-              </lable>
-              <a href="#" class="btn1 btn-custom btn-xs">가능 확인</a>
-            </div>
+          <div class="select-box select-place">
+            <div><b>출력장소선택</b></div>
+            <lable class="radio-inline" id="radio-design">
+              <input type="radio" name="option_place" id="option_new_engineering_building" value="option_new_engineering_building" checked="checked">
+              신공학관
+            </lable>
+            <lable class="radio-inline" id="radio-design">
+              <input type="radio" name="option_place" id="option_hyehwa" value="option_hyehwa">
+              혜화관
+            </lable>
+            <lable class="radio-inline" id="radio-design">
+              <input type="radio" name="option_place" id="option_myeongjin" value="option_myeongjin">
+              명진관
+            </lable>
+            <a href="#" class="btn1 btn-custom btn-xs">가능 확인</a>
+          </div>
 
+<<<<<<< HEAD
             <div class="select-box">
             <div><b>색상 선택</b></div>
               <lable class="radio-inline" id="radio-design">
@@ -115,6 +120,50 @@
                 4분할
               </lable>
             </div>
+=======
+
+          <div class="select-box">
+          <div><b>색상선택</b></div>
+            <lable class="radio-inline" id="radio-design">
+              <input type="radio" name="option_color_or_black" id="option_black" value="option_black" checked="checked">
+              흑백
+            </lable>
+            <lable class="radio-inline" id="radio-design">
+              <input type="radio" name="option_color_or_black" id="option_color" value="option_color" onclick="rbclick(this)">
+              컬러
+            </lable>
+          </div>
+
+        <!--
+          <div class="select-box">
+            <div><b>용지선택</b></div>
+            <lable class="radio-inline" id="radio-design">
+              <input type="radio" name="option_size" id="option_A4" value="option_A4" checked="checked">
+              A4
+            </lable>
+            <lable class="radio-inline" id="radio-design">
+              <input type="radio" name="option_size" id="option_A3" value="option_A3">
+              A3
+            </lable>
+          </div>
+        -->
+
+          <div class="select-box">
+            <div><b>분할선택</b></div>
+            <lable class="radio-inline" id="radio-design">
+              <input type="radio" name="option_split" id="option_split_no" value="option_split_no" checked="checked">
+              분할없음
+            </lable>
+            <lable class="radio-inline" id="radio-design">
+              <input type="radio" name="option_split" id="option_split_2" value="option_split_2">
+              2분할
+            </lable>
+            <lable class="radio-inline" id="radio-design">
+              <input type="radio" name="option_split" id="option_split_4" value="option_split_4">
+              4분할
+            </lable>
+          </div>
+>>>>>>> 15262cf16b869af05b74081fb96044895af2983b
 
             <div class="select-box">
               <div><b>단면/양면 선택</b></div>
@@ -140,6 +189,7 @@
               </lable>
             </div>
 
+<<<<<<< HEAD
             <div class="select-box">
               <div><b>예약 시간</b></div>
               <select class="form-control" id="select">
@@ -156,6 +206,8 @@
               </select>
             </div>
 
+=======
+>>>>>>> 15262cf16b869af05b74081fb96044895af2983b
         </div>
         <div class="col-md-4 option_preview">
           <b>옵션 미리보기</b>
@@ -164,7 +216,11 @@
       <div class="row">
         <div class="col-md-4 col-md-offset-6">
           <div>
+<<<<<<< HEAD
             <input type="submit" class="btn1 btn-custom btn-big" value="결제"></input>
+=======
+            <a href="#" class="btn1 btn-custom btn-big">출력　<img src="img/icon/printer-1.png" class="main-logo" width="35px" height="35px"></a>
+>>>>>>> 15262cf16b869af05b74081fb96044895af2983b
           </div>
         </div>
       </div>

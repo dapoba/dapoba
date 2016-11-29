@@ -1,0 +1,194 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR" %>
+    <%@page import= "java.sql.*"%>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="YoonJiHyun_KimHyunAh">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>문서함</title>
+
+    <link href="bootstrap.css" rel="stylesheet">
+    <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="fileupload.css" rel="stylesheet">
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    
+    <script language="javascript" type="text/javascript"> 
+	function chkbox(){ 
+       var ele = document.form1.file_select; 
+       var len = ele.length; 
+       var vals=''; 
+       for(var i=0; i<len; i++){ 
+              if( ele[i].checked) alert(ele[i].value); 
+       } 
+       //document.getElementById("result").innerHTML = "체크한 값 : "+vals; 
+	} 
+	
+		</script> 
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">DAPOBA</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">홈</a></li>
+            <li><a href="#about">문서함</a></li>
+            <li><a href="#contact">출력</a></li>
+            <li><a href="#contact">코인/마일리지</a></li>
+            <li><a href="#contact">고객센터</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="user_name"><a>OOO님</a></li>
+            <li class=""><a href="./">마이페이지 <span class="sr-only">(current)</span></a></li>
+            <li><a href="./">로그아웃</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-2">
+          <h4 class="margin-option">문서함</h4>
+        </div>
+        <div class="col-md-6 col-md-offset-2 select-box">
+        <form>
+        <%
+        String driver = "com.mysql.jdbc.Driver"; 
+    	String url = "jdbc:mysql://localhost:3306/?user=root"; 
+    	String userId = "root"; 
+    	String passwd = "1234"; 
+    	Connection conn; 
+    	Statement stmt;
+    	ResultSet rs; 
+    	try
+		{ 
+			Class.forName(driver); // Driver Loading 
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = ""; // SQL 작성 
+			String file_list="파일이 존재하지 않습니다.";
+			stmt = conn.createStatement(); 	// Statement 
+			sql = "select Filename, File_extension from dapoba_db.file where Account_Id='test1'";
+			rs = stmt.executeQuery(sql);// ResultSet 
+			while(rs.next()) 
+			{ 
+				file_list=rs.getString("filename")+"."+rs.getString("file_extension");
+				out.print("<input type=\"checkbox\" name=\"file_select\" value= \"a\"> <a href='File?file_name="+file_list+"'>"+file_list+"</a><br>");
+				//System.out.println("filename " + rs.getString("filename") + "\nfile_extension " + rs.getString("file_extension") + "\n"); // Data get 
+			} 
+			stmt.close(); 
+			conn.close(); // close
+		} 
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }
+        %>
+        <input type="button" id="resultbtn" value="result" onclick="chkbox();"> 
+        </form>
+        <div id="result"></div>
+        </div>
+        <div class="col-md-3 upload-box">
+          <form action="File" method="post" enctype="multipart/form-data">
+
+              <h5>파일 업로드</h5>
+              <input type="file" name="filename1" class="upload-hidden"><br>
+			  <input type="file" name="filename2" class="upload-hidden"><br>
+			  <input type="file" name="filename3" class="upload-hidden"><br>
+			  <input type="file" name="filename4" class="upload-hidden"><br>
+			  <input type="file" name="filename5" class="upload-hidden"><br>
+            <br>
+            <button class="btn btn-primary upload-btn">업로드</button>
+            <progress class="display-none btn">0%</progress><br>
+          </form>
+        </div>
+      </div>
+    </div> <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      var fileTarget = $('.filebox .upload-hidden');
+
+      fileTarget.on('change', function(){  // 값이 변경되면
+        if(window.FileReader){  // modern browser
+          var filename = $(this)[0].files[0].name;
+        }
+        else {  // old IE
+          var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
+        }
+
+        // 추출한 파일명 삽입
+        $(this).siblings('.upload-name').val(filename);
+      });
+    });
+    </script>
+    <script type="text/javascript">
+     window.onload = function()
+     {
+      // upload 버튼을 클릭하면 파일을 업로드 한다.
+      document.querySelector("button").onclick = fileUpload;
+
+      if(file.files[0].size > 1024*1024*10)
+      {
+       alert("최대 10M 까지만 업로드가 가능합니다. 사이즈 : " + file.files[0].size );
+       return;
+      }
+     };
+
+     // 파일을 업로드 한다.
+     function fileUpload()
+     {
+      var file = document.querySelector("input");
+      //1. XMLHttpRequest 객체 생성
+      var xhr = new XMLHttpRequest();
+      //2. 서버로부터 응답받은 데이터 처리
+      xhr.onreadystatechange = function()
+      {
+       if(xhr.readyState == 4 && xhr.status == 200)
+       {
+        document.querySelector("body").innerHTML
+          += xhr.responseText;
+       }
+      };
+      //3. 서버에 요청하기 위한 정보 세팅
+      xhr.open("POST", "fileupload.jsp", true);
+      xhr.setRequestHeader("X-File-Name", file.files[0].name)
+      //4. 서버에 요청하기
+      xhr.send(file.files[0]);
+
+     }
+    </script>
+  </body>
+</html>

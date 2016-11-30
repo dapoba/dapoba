@@ -1,8 +1,7 @@
-import java.util.Random;
 public class Verification_number {
 
 	public int verification_num;
-	//³ª
+	
 	public void issue_verification_number(){
 		while(true){
 			String str = String.valueOf(Math.random());
@@ -11,7 +10,7 @@ public class Verification_number {
 				break;
 		}
 	}
-	//³ª
+	
 	public boolean check_duplication(int num)
 	{
 		boolean flag;

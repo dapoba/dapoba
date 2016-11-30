@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class FormEx
  */
-@WebServlet("/Log_In")
-public class Log_In extends HttpServlet {
+@WebServlet("/log_In")
+public class log_In extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Log_In() {
+    public log_In() {
         super();
         // TODO Auto-generated constructor stub
     }

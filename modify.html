@@ -7,17 +7,14 @@
     <meta name="description" content="">
     <meta name="author" content="YoonJiHyun">
     <link rel="icon" href="../../favicon.ico">
-
     <title>정보수정</title>
-
     <link href="bootstrap.css" rel="stylesheet">
     <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="mypage.css" rel="stylesheet">
+    <link href="modify.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
   </head>
 
   <body>
-    <!-- Static navbar -->
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -33,9 +30,9 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">홈</a></li>
             <li><a href="fileupload.html">문서함</a></li>
-            <li><a href="#contact">출력</a></li>
-            <li><a href="#contact">코인/마일리지</a></li>
-            <li><a href="qna-board.html">고객센터</a></li>
+            <li><a href="option-select.html">출력</a></li>
+            <li><a href="coin-mileage.html">코인/마일리지</a></li>
+            <!--li><a href="qna-board.html">고객센터</a></li-->
             <!--li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -63,53 +60,55 @@
         <fieldset>
           <legend>정보 수정</legend>
           회원님의 정보를 수정하실 수 있습니다.<br><br>
-          <div class="form-group">
-            <label for="ID" class="col-md-2 control-label"><b>아이디</b></label>
-            <div class="col-md-8 underline">
-              OOOOO
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="password" class="col-md-2 control-label"><b>비밀번호</b></label>
-            <div class="col-md-8">
-              <button type="submit" class="btn-xs btn1">비밀번호 변경</button>　
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="Name" class="col-md-2 control-label">이름</label>
-            <div class="col-md-8">
-              <input type="text" class="underline" id="inputName" placeholder="Name">
-            </div>
-          </div>
-          <div class="form-group">
-              <label for="inputBirth" class="col-md-2 control-label">생년월일</label>
-              <div class="col-md-8">
-                <input type="text" class="underline" id="inputBirth" placeholder="Birth">
+          <div class="row">
+            <div class="form-group">
+              <label for="ID" class="col-md-2 control-label"><b>아이디</b></label>
+              <div class="col-md-8 underline">
+                OOOOO
               </div>
             </div>
             <div class="form-group">
-              <label for="inputEmail" class="col-md-2 control-label">이메일</label>
-              <div class="col-md-3 no-right-padding">
-                <input type="text" class="underline" id="inputEmail1" placeholder="E-mail">
-              </div>
-              <div class="col-md-1 no-padding center-align">
-                @
-              </div>
-              <div class="col-md-4 no-left-padding">
-                <input type="text" class="underline" id="inputEmail2" placeholder=" E-mail">
+              <label for="password" class="col-md-2 control-label"><b>비밀번호</b></label>
+              <div class="col-md-8">
+                <a href="modify-pw.html" class="btn1 btn-default btn-custom btn-sm"><b>비밀번호 변경</b></a>　
               </div>
             </div>
             <div class="form-group">
-              <label for="inputPhone" class="col-md-2 control-label">전화번호</label>
+              <label for="Name" class="col-md-2 control-label"><b>이름</b></label>
               <div class="col-md-8">
-                <input type="text" class="underline" id="inputPhone" placeholder="Phone">
+                <input type="text" class="underline" id="inputName"></input>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <div class="col-md-8 col-md-offset-2">
-              <button type="submit" class="btn-xs btn1">정보수정</button>　
-              <button type="submit" class="btn-xs btn1">회원탈퇴</button>
+            <div class="form-group">
+                <label for="inputBirth" class="col-md-2 control-label"><b>생년월일</b></label>
+                <div class="col-md-8">
+                  <input type="text" class="underline" id="inputBirth">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail" class="col-md-2 control-label"><b>이메일</b></label>
+                <div class="col-md-3">
+                  <input type="text" class="underline" id="inputEmail1"></input>
+                </div>
+                <div class="col-md-1 center-align">
+                <span>@</span>
+                </div>
+                <div class="col-md-4 no-left-padding">
+                  <input type="text" class="underline" id="inputEmail2"></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPhone" class="col-md-2 control-label"><b>전화번호</b></label>
+                <div class="col-md-8">
+                  <input type="text" class="underline" id="inputPhone"></input>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-4 col-md-offset-8">
+                <button type="submit" class="btn-xs btn1">정보수정</button>　
+                <button type="submit" class="btn-xs btn1">회원탈퇴</button>
+              </div>
             </div>
           </div>
         </fieldset>

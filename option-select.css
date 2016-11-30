@@ -23,6 +23,15 @@ hr {
   margin-top: 40px;
   margin-bottom: 40px;
 }
+.upload-box{
+  padding: 10px;
+  background-color: #EAEAEA;
+  background-color: rgba(234,234,234,0.50);
+  border: 1px solid #D5D5D5;
+  border: 1px solid rgba(213,213,213,1.000);
+  height: 430px;
+  margin-bottom: 15px;
+}
 .select-box {
   background-color: #EAEAEA;
   background-color: rgba(234,234,234,0.50);
@@ -35,7 +44,7 @@ hr {
   margin-bottom:10px;
 }
 .option_preview {
-  height: 441px;
+  height: 533px;
   background-color: #EAEAEA;
   background-color: rgba(234,234,234,0.50);
   border: 1px solid #D5D5D5;
@@ -52,12 +61,11 @@ hr {
   font-size:14px;
 }
 
-<<<<<<< HEAD
 .btn-big {
   font-size: 24px;
   padding: 15px 65px;
   margin-left: 85px;
-=======
+
 .select-place {
 
 }
@@ -123,6 +131,5 @@ fieldset[disabled] .btn-custom.focus {
   font-size: 24px;
   padding: 15px 70px;
   margin-left: 55px;
->>>>>>> 15262cf16b869af05b74081fb96044895af2983b
   margin-top: -30px;;
 }

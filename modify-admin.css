@@ -1,0 +1,10 @@
+.select-person {
+  border:1px solid #adadad;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+.select-box {
+  background-color: rgba(234,234,234,0.50);
+  padding:30px 50px;
+  margin-top:30px;
+}

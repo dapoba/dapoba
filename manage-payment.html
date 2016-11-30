@@ -7,10 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="YoonJiHyun">
     <link rel="icon" href="../../favicon.ico">
-    <title>카드 결제</title>
+    <title>입금 관리</title>
     <link href="bootstrap.css" rel="stylesheet">
     <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="payment-card.css" rel="stylesheet">
+    <link href="manage-payment.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
   </head>
 
@@ -28,10 +28,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">홈</a></li>
-            <li><a href="fileupload.html">문서함</a></li>
-            <li><a href="option-select.html">출력</a></li>
-            <li><a href="coin-mileage.html">코인/마일리지</a></li>
+            <li class="active"><a href="admin.html">관리자 페이지</a></li>
+            <li><a href="cabinet.html">사물함 관리</a></li>
+            <li><a href="manage-payment.html">입금 관리</a></li>
             <!--li><a href="qna-board.html">고객센터</a></li-->
             <!--li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -46,61 +45,45 @@
               </ul>
             </li-->
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="user_name"><a>OOO님</a></li>
-            <li class=""><a href="mypage.html">마이페이지 <span class="sr-only">(current)</span></a></li>
-            <li><a href="./">로그아웃</a></li>
-          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-2">
-          <h4>카드 결제</h4>
+          <h4>입금 관리</h4>
+        </div>
+        <div class="col-md-6 col-md-offset-3 payment_box0">
+          <h5>무통장 입금 현황 명단</h5>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+          <div class="row">
+            <div class="col-md-4 payment_box2">
+              아이디
+            </div>
+            <div class="col-md-4 payment_box2">
+              회원명
+            </div>
+            <div class="col-md-4 payment_box2">
+              입금 여부
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 payment_box2">
+              <div class="list">OOO</div>
+            </div>
+            <div class="col-md-4 payment_box2">
+              <div class="list">OOO</div>
+            </div>
+            <div class="col-md-4 payment_box2">
+              <input type="submit" value="확인" class="btn1 btn-sm"></input>
+            </div>
+          </div>
         </div>
       </div>
-        <form class="form-horizontal col-md-6 col-md-offset-3 well select-box">
-          <fieldset>
-            <div class="form-group">
-              <label for="inputID" class="col-md-2 control-label"><b>카드명</b></label>
-              <div class="col-md-9">
-                <select class="form-control" id="select" required>
-                  <option>신한카드</option>
-                  <option>국민카드</option>
-                  <option>우리카드</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="inputCardNumber" class="col-md-2 control-label"><b>카드번호</b></label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="inputCardNumber" placeholder="Card Number" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="inputPassword" class="col-md-2 control-label"><b>비밀번호</b></label>
-              <div class="col-md-9">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="inputValidDate" class="col-md-2 control-label"><b>유효기간</b></label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="inputValidDate" placeholder="Valid Date" required>
-              </div>
-              <div class="row">
-                <div class="col-md-offset-2 col-md-8 margin-custom"><span class="help-block">　(MONTH/YEAR 순으로 네자리 숫자를 연속하여 입력)</span></div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-md-8 col-md-offset-2">
-                <input type="submit" class="btn1" value="입력 완료"></input>
-              </div>
-            </div>
-          </fieldset>
-        </form>
+      <div class="row">
+
+      </div>
       </div>
     </div> <!-- /container -->
 

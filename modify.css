@@ -45,10 +45,11 @@ h4 {
 .underline {
   display: block;
   padding-bottom: 5px;
-  margin-top: 12px;
+  margin-top: 0px;
   margin-bottom: 15px;
   line-height: inherit;
   color: #4C4C4C;
   border: 0;
   border-bottom: 1px solid #e5e5e5;
+  background-color: rgba(255,255,255,0.0);
 }

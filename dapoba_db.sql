@@ -26,7 +26,6 @@ USE `Dapoba_db` ;
 CREATE TABLE IF NOT EXISTS `Dapoba_db`.`Printer` (
   `Printer_ID` VARCHAR(20) NOT NULL,
   `Printer_loc` VARCHAR(2) NOT NULL,
-  PRIMARY KEY (`Printer_ID`),
   UNIQUE INDEX `Printer_ID_UNIQUE` (`Printer_ID` ASC))
 ENGINE = InnoDB;
 
@@ -35,10 +34,10 @@ ENGINE = InnoDB;
 -- Table `Dapoba_db`.`Cabinet`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Dapoba_db`.`Cabinet` (
-  `cabinet_number` VARCHAR(20) NOT NULL,
-  `cabinet_state` VARCHAR(1) NOT NULL,
-  `cabinet_password` VARCHAR(8) NULL,
-  PRIMARY KEY (`cabinet_number`))
+ `cabinet_number` VARCHAR(20) NOT NULL,
+ `cabinet_state` VARCHAR(1) NOT NULL,
+ `cabinet_password` VARCHAR(8) NULL,
+ `cabinet_loc` VARCHAR(2) NULL)
 ENGINE = InnoDB;
 
 
@@ -52,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `Dapoba_db`.`Order` (
   `page_division` VARCHAR(1) NOT NULL,
   `color` CHAR(20) NOT NULL,
   UNIQUE INDEX `Account_Order_ID_UNIQUE` (`Order_ID` ASC),
-  PRIMARY KEY (`Order_ID`),
   UNIQUE INDEX `Filename_UNIQUE` (`Filename` ASC))
 ENGINE = InnoDB;
 
@@ -64,7 +62,6 @@ CREATE TABLE IF NOT EXISTS `Dapoba_db`.`Cash` (
   `Account_number` VARCHAR(25) NOT NULL,
   `bank_name` CHAR(20) NOT NULL,
   `account_holder_name` CHAR(20) NOT NULL,
-  PRIMARY KEY (`Account_number`),
   UNIQUE INDEX `Account_number_UNIQUE` (`Account_number` ASC))
 ENGINE = InnoDB;
 
@@ -73,13 +70,12 @@ ENGINE = InnoDB;
 -- Table `Dapoba_db`.`Credit_Card`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Dapoba_db`.`Credit_Card` (
-  `Credit_card_number` VARCHAR(12) NOT NULL,
+  `Credit_card_number` VARCHAR(16) NOT NULL,
   `Credit_card_password` VARCHAR(4) NOT NULL,
-  `ExpDate` DATETIME NOT NULL,
+  `ExpDate` VARCHAR(4) NOT NULL,
   `Type` CHAR(20) NOT NULL,
   `Balance` VARCHAR(20) NULL DEFAULT NULL,
-  UNIQUE INDEX `Credit_card_number_UNIQUE` (`Credit_card_number` ASC),
-  PRIMARY KEY (`Credit_card_number`))
+  UNIQUE INDEX `Credit_card_number_UNIQUE` (`Credit_card_number` ASC))
 ENGINE = InnoDB;
 
 
@@ -87,10 +83,9 @@ ENGINE = InnoDB;
 -- Table `Dapoba_db`.`Mileage_Coin`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Dapoba_db`.`Mileage_Coin` (
-  `Deposit_ID` VARCHAR(25) NOT NULL,
+  `ID` VARCHAR(25) NOT NULL,
   `Mileage` VARCHAR(10) NULL DEFAULT NULL,
-  `Coin` VARCHAR(10) NULL DEFAULT NULL,
-  PRIMARY KEY (`Deposit_ID`))
+  `Coin` VARCHAR(10) NULL DEFAULT NULL)
 ENGINE = InnoDB
 COMMENT = '	';
 
@@ -110,8 +105,7 @@ CREATE TABLE IF NOT EXISTS `Dapoba_db`.`Account` (
   UNIQUE INDEX `ID_UNIQUE` (`ID` ASC),
   UNIQUE INDEX `E-mail_UNIQUE` (`Email` ASC),
   UNIQUE INDEX `Phone_number_UNIQUE` (`Phone_number` ASC),
-  UNIQUE INDEX `Order_ID_UNIQUE` (`Order_ID` ASC),
-  PRIMARY KEY (`ID`))
+  UNIQUE INDEX `Order_ID_UNIQUE` (`Order_ID` ASC))
 ENGINE = InnoDB;
 
 
@@ -120,12 +114,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Dapoba_db`.`History` (
   `Account_ID` CHAR(20) NOT NULL,
-  `date` VARCHAR(14) NOT NULL,
+  `date` VARCHAR(30) NOT NULL,
   `Coin_history` VARCHAR(11) NULL,
   `Mileage_history` VARCHAR(11) NULL,
-  `File_name` CHAR(20) NOT NULL,
-  PRIMARY KEY (`Account_ID`),
-  UNIQUE INDEX `date_UNIQUE` (`date` ASC))
+  `File_name` CHAR(20))
 ENGINE = InnoDB;
 
 
@@ -135,12 +127,17 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `Dapoba_db`.`File` (
   `Filename` CHAR(20) NOT NULL,
   `File_extension` CHAR(20) NOT NULL,
-  `File_page_no` VARCHAR(3) NOT NULL,
-  `Account_ID` CHAR(20) NOT NULL,
-  PRIMARY KEY (`Filename`),
-  UNIQUE INDEX `Filename_UNIQUE` (`Filename` ASC))
+  `Account_ID` CHAR(20) NOT NULL)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `Dapoba_db`.`cashList`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Dapoba_db`.`File` (
+  `ID` CHAR(20) NOT NULL,
+  `Name` CHAR(20) NOT NULL,
+  `deposit` CHAR(20) NOT NULL,
+ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

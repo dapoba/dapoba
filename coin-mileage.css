@@ -1,0 +1,30 @@
+.coin_box0 {
+  margin-top: 40px;
+  background-color: #F9F9F9;
+  border: 1px solid #D5D5D5;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.coin_box1 {
+  background-color: #F9F9F9;
+  border: 1px solid #D5D5D5;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.coin_box2 {
+  background-color: #F9F9F9;
+  border: 1px solid #D5D5D5;
+  margin-bottom: -1px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+}
+#custom_btn {
+  border: 1px solid rgba(234,234,234,1);
+  display:inline-block;
+}

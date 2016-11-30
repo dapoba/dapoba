@@ -1,20 +1,19 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-  <head>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR" import = "java.util.*"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang = "en">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="YoonJiHyun">
     <link rel="icon" href="../../favicon.ico">
-
-    <title>카드 결제</title>
-
+    <title>�Ա� ����</title>
     <link href="bootstrap.css" rel="stylesheet">
     <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="payment-card.css" rel="stylesheet">
+    <link href="manage-payment.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
   </head>
 
   <body>
@@ -31,11 +30,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">홈</a></li>
-            <li><a href="fileupload.html">문서함</a></li>
-            <li><a href="#contact">출력</a></li>
-            <li><a href="coin-milege.html">코인/마일리지</a></li>
-            <li><a href="qna-board.html">고객센터</a></li>
+            <li class="active"><a href="admin.html">������ ������</a></li>
+            <li><a href="cabinet.html">�繰�� ����</a></li>
+            <li><a href="manage-payment.html">�Ա� ����</a></li>
+            <!--li><a href="qna-board.html">��������</a></li-->
             <!--li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -49,61 +47,80 @@
               </ul>
             </li-->
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="user_name"><a>test1님</a></li>
-            <li class=""><a href="mypage.html">마이페이지 <span class="sr-only">(current)</span></a></li>
-            <li><a href="./">로그아웃</a></li>
-          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-2">
-          <h4>카드 결제</h4>
+          <h4>�Ա� ����</h4>
+        </div>
+        <div class="col-md-6 col-md-offset-3 payment_box0">
+          <h5>������ �Ա� ��Ȳ ����</h5>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+          <div class="row">
+            <div class="col-md-3 payment_box2">
+              ���̵�
+            </div>
+            <div class="col-md-3 payment_box2">
+              ȸ����
+            </div>
+            <div class="col-md-3 payment_box2">
+              �ݾ�
+            </div>
+            <div class="col-md-3 payment_box2">
+              �Ա� ����
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 payment_box2">
+              <div class="list">
+               <%
+            Vector id = (Vector)request.getAttribute("id");
+            for(int i = 0; i <id.size(); i++){ %>
+            	<%= id.get(i) %><br>
+            <% } %>
+              </div>
+            </div>
+            <div class="col-md-3 payment_box2">
+              <div class="list">
+              <%
+            Vector name = (Vector)request.getAttribute("name");
+            for(int i = 0; i <name.size(); i++){ %>
+            	<%= name.get(i) %><br>
+            <% } %>
+              </div>
+            </div>
+            <div class="col-md-3 payment_box2">
+              <div class="list">
+              <%
+            Vector money = (Vector)request.getAttribute("money");
+            for(int i = 0; i <money.size(); i++){ %>
+            	<%= money.get(i) %><br>
+            <% } %>
+              </div>
+            </div>
+            <form mothod = "POST" action = "Milege_Coin">
+            <div class="col-md-3 payment_box2">
+            <%
+            Vector confirm = (Vector)request.getAttribute("confirm");
+            for(int i = 0; i <confirm.size(); i++){ 
+            	 if(confirm.get(i).equals("1")){	//�Ա� ��Ȯ��%>
+          	<button name = "confirmPayment" value = "<%=id.get(i) %>" class="btn1 btn-default btn-sm" id ="custom_btn">Ȯ��</button>          	 
+            	 <%}
+            	 else if(confirm.get(i).equals("0")){	//�Ա� Ȯ�� %>
+            	     �Ϸ�<br>
+             	<%} 
+             }%>
+            </div>
+            </form>
+          </div>
         </div>
       </div>
-        <form class="form-horizontal col-md-6 col-md-offset-3 well select-box">
-          <fieldset>
-            <div class="form-group">
-              <label for="inputID" class="col-md-2 control-label"><b>카드명</b></label>
-              <div class="col-md-9">
-                <select class="form-control" id="select" required>
-                  <option>신한카드</option>
-                  <option>국민카드</option>
-                  <option>우리카드</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="inputCardNumber" class="col-md-2 control-label"><b>카드번호</b></label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="inputCardNumber" placeholder="Card Number" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="inputPassword" class="col-md-2 control-label"><b>비밀번호</b></label>
-              <div class="col-md-9">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="inputValidDate" class="col-md-2 control-label"><b>유효기간</b></label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="inputValidDate" placeholder="Valid Date" required>
-              </div>
-              <div class="row">
-                <div class="col-md-offset-2 col-md-8 margin-custom"><span class="help-block">　(MONTH/YEAR 순으로 네자리 숫자를 연속하여 입력)</span></div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-md-8 col-md-offset-2">
-                <input type="submit" class="btn1" value="입력 완료" onclick = "alert('없는 카드정보입니다.\n 다시 입력해주세요.')"></input>
-              </div>
-            </div>
-          </fieldset>
-        </form>
+      <div class="row">
+
+      </div>
       </div>
     </div> <!-- /container -->
 
@@ -116,4 +133,6 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
   </body>
+</html>
+
 </html>

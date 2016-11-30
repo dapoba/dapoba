@@ -198,4 +198,79 @@ public class database
 		}
 		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); return null;}
 	}
+	static String[][] database_payment_list_print(){
+		try{
+			String[][] payList = new String[10][4]; 
+			int i = 0;
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = "Use dapoba_database";
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			sql = "select *from payment_list";
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			while(rs.next()) 
+			{ 
+				payList[i][0] = rs.getString("ID");
+				payList[i][1] = rs.getString("Name");
+				payList[i][2] = rs.getString("deposit");
+				payList[i][3] = rs.getString("money");
+				i++;
+			} 
+			stmt.close(); 
+			conn.close(); // close
+			return payList;
+		}
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); return null;}
+	}
+	static void database_payment_confirm(String id){
+		try{
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = "Use dapoba_database";
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			//입금 확인이라면 confirm = 0
+			sql = "update payment_list set deposit =0 Where ID = "+id;
+			rs = stmt.executeQuery(sql);			
+			stmt.close(); 
+			conn.close(); // close
+		}
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }
+	}
+	static void database_payment_insert(String id, String name, String money){
+		try{
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = "Use dapoba_database";
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			//입금 미확인이라면 confirm = 1
+			sql = "insert into history values (" + id + ", "+ name + ", " + "1" +", "+money+")";
+			rs = stmt.executeQuery(sql);			
+			stmt.close(); 
+			conn.close(); // close
+		}
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }
+	}
+	static int database_page_total(String[] fileList){
+		try{
+			int pageNum = 0;
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = "Use dapoba_database";
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			for (int i = 0; i <fileList.length; i++){
+				sql = "select pageNo from File where Filename = " + fileList[i];
+				rs = stmt.executeQuery(sql);
+				pageNum += rs.getInt("pageNo");
+			}
+			stmt.close(); 
+			conn.close(); // close
+			return pageNum;
+		}
+		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); return 0;}
+	}
 }

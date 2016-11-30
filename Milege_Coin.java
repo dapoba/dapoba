@@ -20,15 +20,15 @@ import com.lowagie.text.pdf.FontSelector;
 import com.lowagie.text.pdf.PdfWriter;
 
 public class Milege_Coin extends HttpServlet{
+	public Option option;
 	public int Milege;
 	public int Coin;
 	private int chargedCoin;
 	private int usedCoin;
 	private int usedMilege;
-	public int Page;
 	public String ID;
 	public String phoneNum;
-	public String File;
+	public String[] fileList;
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException{
 		response.setContentType("text/html; charset = utf-8");
@@ -75,6 +75,7 @@ public class Milege_Coin extends HttpServlet{
 				request.setAttribute("holder",holder);
 				request.setAttribute("accountNo", account);
 				request.setAttribute("money", money);
+				
 				rd = getServletContext().getRequestDispatcher("/payment-cash-info.jsp");
 				rd.forward(request,response);
 			}
@@ -92,8 +93,8 @@ public class Milege_Coin extends HttpServlet{
 				card[2] = value;
 				Credit_Card credit = new Credit_Card(Integer.parseInt(card[0]), card[1], card[2], Integer.parseInt(card[3]), chargedCoin * 2);
 				if(credit.authorized_card() == 1){	//정상 작동
-					charge_coin();
-					out.println("<script> alert('결제가 완료되었습니다.');location.href='main.html';</script>");
+					charge_coin(ID);
+					out.println("<script> alert('결제가 완료되었습니다.');location.href='main.jsp';</script>");
 					PrintWriter wr = response.getWriter();
 					wr.flush();
 					wr.close();
@@ -117,11 +118,17 @@ public class Milege_Coin extends HttpServlet{
 			}
 			//order이후 결제페이지로 넘어올 때
 			else if(name.equals("complete_order")){
-				File = value;
+				fileList = request.getParameterValues("fileList");
+				database.database_use();
+				int Page = database.database_page_total(fileList);
+				int point = Page * 10;	//흑백, 면당 1페이지 인쇄시
+				if(option.color)	//컬러인 경우 금액 5배증가
+					point *= 5;
+				point /= option.page_division;	//분할페이지에 따른 금액 차감
 				request.setAttribute("coin", Coin);
 				request.setAttribute("milege", Milege);
 				request.setAttribute("page", Page);	
-				request.setAttribute("total", Page * 10);
+				request.setAttribute("total", point);
 				rd = getServletContext().getRequestDispatcher("/payment-info.jsp");
 				rd.forward(request,response);
 			}
@@ -149,6 +156,7 @@ public class Milege_Coin extends HttpServlet{
 			//영수증 출력 여부
 			else if(name.equals("Bill")){
 				if(value.equals("yes")){
+					//파일 리스트 맨 끝에 영수증 붙이기
 					issue_bill();
 				}
 				sendSMS();
@@ -179,6 +187,37 @@ public class Milege_Coin extends HttpServlet{
 				rd = getServletContext().getRequestDispatcher("/coin-mileage.jsp");
 				rd.forward(request,response);
 			}
+			//관리자가 입금 확인을 한 경우
+			else if(name.equals("pushedPayment")){
+				String payList[][] = new String[10][4];
+				payList = print_payment();
+				Vector id = new Vector();
+				Vector Name = new Vector();
+				Vector money = new Vector();
+				Vector confirm = new Vector();
+				for(int i = 0; i < 10; i++){
+					if((payList[i][0] != null)&&(payList[i][1] != null)&&(payList[i][2] != null)&&(payList[i][3] != null))
+					id.add(payList[i][0]);
+					Name.add(payList[i][1]);
+					confirm.add(payList[i][2]);
+					money.add(payList[i][3]);
+				}
+				request.setAttribute("id",id);
+				request.setAttribute("name",Name);
+				request.setAttribute("confirm", confirm);
+				request.setAttribute("money", money);
+				rd = getServletContext().getRequestDispatcher("/coin-mileage.jsp");
+				rd.forward(request,response);
+			}
+			//입금 확인을 누른 경우
+			else if(name.equals("confirmPayment")){
+				charge_coin(value);
+				confirm_payment(value);
+				out.println("<script> alert('입금 확인을 완료하였습니다.\n 코인을 충전하였습니다.');location.href='manage-payment.jsp';</script>");
+				PrintWriter wr = response.getWriter();
+				wr.flush();
+				wr.close();
+			}
 		}
 	}
 	
@@ -201,7 +240,7 @@ public class Milege_Coin extends HttpServlet{
 			//DB에서 마일리지 변경
 			database.database_milege_coin(ID, "Milege", Milege);
 			//DB에서 마일리지 사용내역 저장
-			database.database_history_insert(ID, "milege", Milege , File);
+			database.database_history_insert(ID, "milege", Milege , fileList[0] + "외 "+String.valueOf(fileList.length)+"개");
 			return true;
 		}
 		else{//마일리지가 부족한 경우
@@ -220,7 +259,7 @@ public class Milege_Coin extends HttpServlet{
 			//DB에서 코인 차감
 			database.database_milege_coin(ID, "Coin", Coin);
 			//DB에서 코인 차감내역 저장
-			database.database_history_insert(ID, "coin", coin , File);
+			database.database_history_insert(ID, "coin", coin , fileList[0] + "외 "+String.valueOf(fileList.length)+"부");
 			save_milege(coin);
 			return true;
 		}
@@ -228,14 +267,14 @@ public class Milege_Coin extends HttpServlet{
 			return false;
 		}
 	}
-	public void charge_coin()
+	public void charge_coin(String id)
 	{
 		Coin += chargedCoin;
 		database.database_use();
 		//DB에서 코인 충전
-		database.database_milege_coin(ID,  "Coin", Coin);	
+		database.database_milege_coin(id,  "Coin", Coin);	
 		//DB에서 코인 충전내역 추가
-		database.database_history_insert(ID, "coin", chargedCoin , "NULL");
+		database.database_history_insert(id, "coin", chargedCoin , "NULL");
 	}
 	
 	private void save_milege(int coin)
@@ -247,7 +286,7 @@ public class Milege_Coin extends HttpServlet{
 		//DB에서 마일리지 변경
 		database.database_milege_coin(ID, "Milege", Milege);
 		//DB에서 마일리지 적립내역 추가
-		database.database_history_insert(ID, "milege", milege , File);
+		database.database_history_insert(ID, "milege", milege , fileList[0] + "외 "+String.valueOf(fileList.length)+"부");
 	}
 	public void issue_bill(){
 		Document document = new Document();
@@ -296,14 +335,14 @@ public class Milege_Coin extends HttpServlet{
             document.add(
                            new Paragraph
                            (
-                                "사용하신 코인 : " + String.valueOf(usedCoin) +", 사용하신 마일리지 : " +String.valueOf(usedMilege)
+                                "사용하신 코인 : " + String.valueOf(usedCoin) +"coin, 사용하신 마일리지 : " +String.valueOf(usedMilege)+"p\n"
                               , new Font(unicode, 12)
                            )
                         );
             document.add(
                     new Paragraph
                     (
-                         "잔여 코인 : " + String.valueOf(Coin) +", 잔여 마일리지 : " +String.valueOf(Milege)
+                         "잔여 코인 : " + String.valueOf(Coin) +"coin, 잔여 마일리지 : " +String.valueOf(Milege) + "p\n"
                        , new Font(unicode, 12)
                     )
                  );
@@ -320,7 +359,7 @@ public class Milege_Coin extends HttpServlet{
 	private void sendSMS(){
 		Verification_number number = new Verification_number();
 		number.issue_verification_number();
-		String bill = "Reservation complete\n"+"remaining coin : " +String.valueOf(Coin)+ "mileage : " + String.valueOf(Milege)+"\n" + "varification num : " + String.valueOf(number.verification_num);
+		String bill = "Reservation complete\n"+"remaining coin : " +String.valueOf(Coin)+ "c, mileage : " + String.valueOf(Milege)+"p\n" + "varification num : " + String.valueOf(number.verification_num);
 		SendSMS s = new SendSMS(phoneNum, bill);
 	}
 	private String[][] print_history(){
@@ -328,5 +367,15 @@ public class Milege_Coin extends HttpServlet{
 		database.database_use();
 		history = database.database_history_print(ID);
 		return history;
+	}
+	private String[][] print_payment(){
+		String[][] paymentList = new String[10][3];
+		database.database_use();
+		paymentList = database.database_payment_list_print();
+		return paymentList;
+	}
+	private void confirm_payment(String id){
+		database.database_use();
+		database.database_payment_confirm(id);
 	}
 }

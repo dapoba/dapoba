@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -50,7 +50,7 @@
             </li-->
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="user_name"><a>OOO님</a></li>
+            <li class="user_name"><a>test1님</a></li>
             <li class=""><a href="mypage.html">마이페이지 <span class="sr-only">(current)</span></a></li>
             <li><a href="./">로그아웃</a></li>
           </ul>
@@ -66,15 +66,24 @@
       </div>
         <div class="row">
           <div class="col-md-6 col-md-offset-3 select-box optional-border center-align">
-            <h6><b>코인과 마일리지로 결제할 매수를 기입해주세요.</b></h6><br>
-            출력할 파일 <span>_____</span>장 중<br><br>
+            <h6><b>결제할 마일리지 및 코인을 기입해주세요.(10coin/p 단위)</b></h6><br>
+            출력할 파일 <span>3</span>장 (<span>30</span> coin/point) 중<br><br>
             <div class="form-group has-success">
+            <form method = "POST" action= "Milege_Coin">
+              <label class="control-label a" for="inputUsingCoin">mileage</label>
+              <input name = "useMilege" type="text" class="form-control" id="inputUsingMilege">P
               <label class="control-label" for="inputUsingCoin">coin</label>
-              <input type="text" class="form-control" id="inputUsingCoin">장,　
-              <label class="control-label a" for="inputUsingCoin">milege</label>
-              <input type="text" class="form-control" id="inputUsingMilege">장 <br><br>
+              <input name = "useCoin" type="text" class="form-control" id="inputUsingCoin">coin,　
             </div>
-            (잔여 코인: <span>_____</span>coin, 잔여 마일리지: <span>_____</span>P)
+            (잔여 마일리지: <span>50</span>P, 잔여 코인: <span>1000</span>coin) <br><br>
+            영수증 출력 여부 : <lable class="radio-inline" id="radio-design">
+              <input name = "Bill" type="radio" name="option_bill" id="yesBill" value="yes" checked="checked"> 예
+            </lable>
+            <lable class="radio-inline" id="radio-design">
+              <input name = "Bill" type="radio" name="option_bill" id="noBill" value="no" onclick="rbclick(this)"> 아니오 
+            </lable><br><br>
+            <input name = "결제 완료"type="submit" class="btn1" id="power-center" value="선택 완료" onclick = "alert('결제를 완료하였습니다.')"></input>
+            </form>
           </div>
         </div>
       </div>

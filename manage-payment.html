@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -7,14 +7,11 @@
     <meta name="description" content="">
     <meta name="author" content="YoonJiHyun">
     <link rel="icon" href="../../favicon.ico">
-
-    <title>무통장 입금</title>
-
+    <title>입금 관리</title>
     <link href="bootstrap.css" rel="stylesheet">
     <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="payment-cash.css" rel="stylesheet">
+    <link href="manage-payment.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
   </head>
 
   <body>
@@ -31,11 +28,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">홈</a></li>
-            <li><a href="fileupload.html">문서함</a></li>
-            <li><a href="#contact">출력</a></li>
-            <li><a href="coin-milege.html">코인/마일리지</a></li>
-            <li><a href="qna-board.html">고객센터</a></li>
+            <li class="active"><a href="admin.html">관리자 페이지</a></li>
+            <li><a href="cabinet.html">사물함 관리</a></li>
+            <li><a href="manage-payment.html">입금 관리</a></li>
+            <!--li><a href="qna-board.html">고객센터</a></li-->
             <!--li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -49,35 +45,51 @@
               </ul>
             </li-->
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="user_name"><a>test1님</a></li>
-            <li class=""><a href="mypage.html">마이페이지 <span class="sr-only">(current)</span></a></li>
-            <li><a href="./">로그아웃</a></li>
-          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-2">
-          <h4>무통장 입금</h4>
+          <h4>입금 관리</h4>
         </div>
-      </div>
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3 select-box optional-border">
-            <h6><b>입금하실 은행명을 선택해주세요.</b></h6>
-            <form action=""><br>
-              <select class="form-control" id="select">
-                <option>신한은행</option>
-                <option>국민은행</option>
-                <option>우리은행</option>
-              </select>
-            </form>
-            <br><br>
-            <input type="submit" class="btn1" id="power-center" value="선택 완료"></input>
+        <div class="col-md-6 col-md-offset-3 payment_box0">
+          <h5>무통장 입금 현황 명단</h5>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+          <div class="row">
+            <div class="col-md-3 payment_box2">
+              아이디
+            </div>
+            <div class="col-md-3 payment_box2">
+              회원명
+            </div>
+	    <div class="col-md-3 payment_box2">
+              입금금액
+            </div>
+            <div class="col-md-3 payment_box2">
+              입금 여부
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 payment_box2">
+              <div class="list">test1</div>
+            </div>
+            <div class="col-md-3 payment_box2">
+              <div class="list">dapoba</div>
+            </div>
+	    <div class="col-md-3 payment_box2">
+              <div class="list">2000</div>
+            </div>
+            <div class="col-md-3 payment_box2">
+              <div class="list">완료</div>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="row">
+
+      </div>
       </div>
     </div> <!-- /container -->
 

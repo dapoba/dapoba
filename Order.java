@@ -1,4 +1,3 @@
-
 public class Order {
 
 	public File order_detail;
@@ -10,6 +9,11 @@ public class Order {
 	
 	public void reservation_file()
 	{
+		
+	}
+	public void send_option(Option option){
+		Milege_Coin mc = new Milege_Coin();
+		mc.option = option;
 		
 	}
 	

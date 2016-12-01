@@ -60,7 +60,7 @@
 				out.println("alert('배정된 사물함이 없습니다.');");
 				out.println("</script>");
 			}
-			out.print("<form action=\"cabinet_verinum.jsp\" method=\"get\" enctype=\"multipart/form-data\">");
+			out.print("<form action=\"cabinet\" method=\"get\" enctype=\"multipart/form-data\">");
 			for(count=1;count<=50;count++)
 			{
 				sql = "select cabinet_state, cabinet_password from dapoba_db.cabinet where cabinet_number='"+count+"' and cabinet_loc = '1';";

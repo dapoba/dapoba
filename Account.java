@@ -1,4 +1,4 @@
-package com.javalec.ex;
+package dsa;
 
 public class Account {
 	private String name;

@@ -1,5 +1,3 @@
-package test;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,13 +13,13 @@ public class RunQueuing {
 	public static void main(String args[]) throws IOException {
 		File directory = new File("./files");
 		String file_list[] = directory.list();
-		
-		database.database_use();
+
+		//database.database_use();
 
 		for (String s : file_list) {
 			Algorithm.inputFile = "./files/" + s;
 			Algorithm.outputFile = s.substring(0, s.indexOf(".txt")) + "_result.txt";
-			Algorithm.QueuingJobs(database.database_page_total(file_list));
+			Algorithm.QueuingJobs(0);
 		}
 	}
 
@@ -33,13 +31,11 @@ public class RunQueuing {
 
 	static class PrintJob implements Comparable<PrintJob> {
 		private int id, pageSize, waitingTime, priority, arrivalTime;
-		Option option;
 		private static int nextId = 0;
 
-		public PrintJob(int pageSize, int waitingTime, int priority, int arrivalTime, Option option) // 생성자
+		public PrintJob(int pageSize, int waitingTime, int priority, int arrivalTime) // 생성자
 		{
 			this.id = ++nextId;
-			this.option=option;
 			setSize(pageSize);
 			setWaitingTime(waitingTime);
 			setPriority(priority);
@@ -53,11 +49,7 @@ public class RunQueuing {
 		public int getSize() {
 			return this.pageSize;
 		}
-		
-		public String getPath() {
-			return this.option.fileName.toString();
-		}
-		
+
 		public void setSize(int size) {
 			if (size > 0 && size < 129) {
 				this.pageSize = size;
@@ -375,9 +367,6 @@ public class RunQueuing {
 		private static void sendToPrint() { // 우선순위 큐잉한 작업들을 프린터로 보내는 함수
 			PrintJob pj = null;
 			while (!pq.empty()) {
-				String file_path="path";
-				Print print = new Print();
-				Print.print_pdf(file_path);
 				pj = pq.remove();
 				pj.setWaitingTime(time - pj.getArrivalTime());
 				totalWaitingTime += pj.getWaitingTime();

@@ -2,7 +2,6 @@
     pageEncoding="EUC-KR"%>
 <%@page import= "java.sql.*"%>
 
-
 <!DOCTYPE html>
 <html lang="en">
   <head>

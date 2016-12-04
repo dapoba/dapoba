@@ -1,26 +1,171 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+package test;
+
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.Comparator;
 
 public class RunQueuing {
+	public static int counter = 0;
+	public static int time = 0;
+	public static int maxWatingTime = 0;
+	protected static String outputFile;
+	
+	public static LinkedList<PrintJob> timePrintJobs1 = new LinkedList<PrintJob>("1", 1); // 시간대별 프린터 작업 링크드 리스트 1
+	public static LinkedList<PrintJob> timePrintJobs2 = new LinkedList<PrintJob>("2", 2); // 시간대별 프린터 작업 링크드 리스트 2
+	public static LinkedList<PrintJob> timePrintJobs3 = new LinkedList<PrintJob>("3", 3); // 시간대별 프린터 작업 링크드 리스트 3
+	public static LinkedList<PrintJob> PrintJobs; // 프린터 작업 링크드 리스트
+	public static PriorityQueue<PrintJob> pq; // 프린트 작업 큐 (우선순위 큐)
 
-	public static void main(String args[]) throws IOException {
-		File directory = new File("./files");
-		String file_list[] = directory.list();
-
-		//database.database_use();
+	public static void main_function(Option option) {
+		String file_list[] = option.fileName;
 
 		for (String s : file_list) {
-			Algorithm.inputFile = "./files/" + s;
-			Algorithm.outputFile = s.substring(0, s.indexOf(".txt")) + "_result.txt";
-			Algorithm.QueuingJobs(0);
+			QueuingJobs(option);
 		}
+	}
+
+	public static void QueuingJobs(Option option) {
+		
+		PrintJobs = new LinkedList<PrintJob>("PrintJobs", 1);
+		readFileInfo(option);
+
+		pq = new PriorityQueue<PrintJob>(PrintJobs.getSize(), new PrintJobComparator());
+		clockTicks(PrintJobs.getFirst().getArrivalTime());
+		for (; !PrintJobs.isEmpty();) {
+			sendToQueue();
+			
+			if(true){
+				sendToPrint(option);
+			}
+		}
+		
+		/*
+		if (Integer.parseInt(option.loc) == 1) {
+			timePrintJobs1 = new LinkedList<PrintJob>("PrintJobs1", 1);
+			readFileInfo(option);
+
+			pq = new PriorityQueue<PrintJob>(timePrintJobs1.getSize(), new PrintJobComparator());
+			clockTicks(timePrintJobs1.getFirst().getArrivalTime());
+			for (; !timePrintJobs1.isEmpty();) {
+				sendToQueue();
+				sendToPrint(option);
+			}
+		} else if (Integer.parseInt(option.loc) == 2) {
+			timePrintJobs2 = new LinkedList<PrintJob>("PrintJobs", 2);
+			readFileInfo(option);
+
+			pq = new PriorityQueue<PrintJob>(timePrintJobs2.getSize(), new PrintJobComparator());
+			clockTicks(timePrintJobs2.getFirst().getArrivalTime());
+			for (; !timePrintJobs2.isEmpty();) {
+				sendToQueue();
+				sendToPrint(option);
+			}
+		} else {
+			timePrintJobs3 = new LinkedList<PrintJob>("PrintJobs", 3);
+			readFileInfo(option);
+
+			pq = new PriorityQueue<PrintJob>(timePrintJobs3.getSize(), new PrintJobComparator());
+			clockTicks(timePrintJobs3.getFirst().getArrivalTime());
+			for (; !timePrintJobs3.isEmpty();) {
+				sendToQueue();
+				sendToPrint(option);
+			}
+		}
+		*/
+		initialize();
+	}
+
+	private static void initialize() { // 변수 초기화
+		PrintJob.resetId();
+		time = 0;
+		maxWatingTime = 0;
+		PrintJobs = null;
+		pq = null;
+	}
+
+	private static void readFileInfo(Option option) {
+		int previous = 0;
+
+		if (previous <= counter) {
+			PrintJobs.insertAtBack(new PrintJob(database.database_page_total(option.fileName), 0,
+					(128 - database.database_page_total(option.fileName)), counter));
+			previous = counter;
+		} else {
+			System.err.println("시간 값이 이전 객체 값보다 작음");
+			System.exit(-1);
+		}
+	}
+
+	private static void clockTicks(int n) {
+		time += n;
+	}
+
+	private static void sendToQueue() {
+		if (time >= PrintJobs.getFirst().getArrivalTime()) {
+			while (time >= PrintJobs.getFirst().getArrivalTime()) {
+				PrintJob pj = PrintJobs.removeFromFront();
+				pj.setWaitingTime(time - pj.getArrivalTime());
+				pq.insert(pj);
+				if (PrintJobs.isEmpty())
+					break;
+			}
+		} else {
+			clockTicks(PrintJobs.getFirst().getArrivalTime() - time);
+		}
+	}
+
+private static void sendToPrint(Option option) { // 우선순위 큐잉한 작업들을 프린터로 보내는 함수
+
+     PrintJob pj = null;
+     int i=0;
+     while (!pq.empty()) {
+        String file_path=option.fileName[i];
+
+        Print print = new Print();
+        String tmp[] = new String[2];
+        tmp = file_path.split(".");
+        if(tmp[1].equals("pdf")){
+        	print.print_pdf(file_path);
+        } else
+			try {
+				print.print_jpg(file_path);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+        pj = pq.remove();
+        pj.setWaitingTime(time - pj.getArrivalTime());
+        if (maxWatingTime < pj.getWaitingTime()) {
+           maxWatingTime = pj.getWaitingTime();
+        }
+        if (!PrintJobs.isEmpty()) {
+           if (time >= PrintJobs.getFirst().getArrivalTime())
+              break;
+        }
+        i++;
+     }
+  }
+
+	/*
+	 * 해당 장소에서 인쇄 가능한지 확인하는 함수
+	 */
+	public boolean checkavailability(int loc) {
+		if (timePrintJobs1.getLocation() == loc) {
+			if (timePrintJobs1.getSize() >= 50) {
+				return false; // 인쇄 불가
+			} else
+				return true; // 인쇄 가능
+		} else if (timePrintJobs2.getLocation() == loc) {
+			if (timePrintJobs2.getSize() >= 50) {
+				return false; // 인쇄 불가
+			} else
+				return true; // 인쇄 가능
+		} else if (timePrintJobs3.getLocation() == loc) {
+			if (timePrintJobs3.getSize() >= 50) {
+				return false; // 인쇄 불가
+			} else
+				return true; // 인쇄 가능
+		} else
+			return false;
 	}
 
 	static class PrintJobComparator implements Comparator<PrintJob> { // Comparator 인터페이스 구현
@@ -89,8 +234,10 @@ public class RunQueuing {
 			return this.priority;
 		}
 
-		public void setPriority(int priority) { // 우선 순위 = (128 - page size) ,(
-												// 128은 최대 인쇄 가능 매수)
+		/*
+		 * 우선 순위 = (128 - page size) ,(128 = 최대 인쇄 가능 매수)
+		 */
+		public void setPriority(int priority) {
 			if (priority >= 0 && priority <= 127) {
 				this.priority = priority;
 			} else {
@@ -168,6 +315,9 @@ public class RunQueuing {
 		private int size;
 		private int location;
 
+		/*
+		 * 링크드리스트 클래스
+		 */
 		public LinkedList(String listName, int location) {
 			name = listName;
 			nodeFirst = nodeLast = null;
@@ -276,163 +426,6 @@ public class RunQueuing {
 
 		public EmptyListException(String name) {
 			super(name + " is empty"); // superclass 생성자 호출
-		}
-	}
-
-	/*
-	 * Algorithm inner class
-	 */
-	static class Algorithm { //
-		public static int time = 0;
-		public static int maxWatingTime = 0;
-		public static double totalWaitingTime = 0.0;
-		public static int NumOfCompleted = 0;
-		protected static String inputFile;
-		protected static String outputFile;
-		private static String maxMessage;
-		public static LinkedList<LinkedList> timePrintJobs1 = new LinkedList<LinkedList>("1", 1); // 시간대별 링크드 리스트 1
-		public static LinkedList<LinkedList> timePrintJobs2 = new LinkedList<LinkedList>("2", 2);; // 시간대별 링크드 리스트 2
-		public static LinkedList<LinkedList> timePrintJobs3 = new LinkedList<LinkedList>("3", 3);; // 시간대별 링크드 리스트 3
-		public static LinkedList<PrintJob> PrintJobs; // 프린터 작업 링크드 리스트
-		public static PriorityQueue<PrintJob> pq; // 프린트 작업 큐 (우선순위 큐)
-
-		public static void QueuingJobs(int loc) {
-
-			PrintJobs = new LinkedList<PrintJob>("PrintJobs", loc);
-			readFileInfo();
-
-			pq = new PriorityQueue<PrintJob>(PrintJobs.getSize(), new PrintJobComparator());
-			clockTicks(PrintJobs.getFirst().getArrivalTime());
-			for (; !PrintJobs.isEmpty();) {
-				sendToQueue();
-				sendToPrint();
-			}
-			initialize();
-		}
-
-		private static void initialize() { // 변수들 초기화
-			PrintJob.resetId();
-			time = 0;
-			maxWatingTime = 0;
-			totalWaitingTime = 0.0;
-			NumOfCompleted = 0;
-			maxMessage = "";
-			PrintJobs = null;
-			pq = null;
-		}
-
-		private static void readFileInfo() {
-			String line = null;
-			String[] tokens = null;
-			int previous = 0;
-			try {
-				BufferedReader br = new BufferedReader(new FileReader(inputFile));
-				while ((line = br.readLine()) != null) {
-					tokens = line.split(" ");
-
-					if (previous <= Integer.parseInt(tokens[0])) {
-						PrintJobs.insertAtBack(new PrintJob(Integer.parseInt(tokens[1]), 0,
-								(128 - Integer.parseInt(tokens[1])), Integer.parseInt(tokens[0])));
-						previous = Integer.parseInt(tokens[0]);
-					} else {
-						System.err.println("Error line " + line + "\n (시간 값이 이전 객체 값보다 작음)");
-						System.exit(-1);
-					}
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		private static void clockTicks(int n) {
-			time += n;
-		}
-
-		private static void sendToQueue() {
-			if (time >= PrintJobs.getFirst().getArrivalTime()) {
-				while (time >= PrintJobs.getFirst().getArrivalTime()) {
-					PrintJob pj = PrintJobs.removeFromFront();
-					pj.setWaitingTime(time - pj.getArrivalTime());
-					pq.insert(pj);
-					if (PrintJobs.isEmpty())
-						break;
-				}
-			} else {
-				clockTicks(PrintJobs.getFirst().getArrivalTime() - time);
-			}
-		}
-
-		private static void sendToPrint() { // 우선순위 큐잉한 작업들을 프린터로 보내는 함수
-			PrintJob pj = null;
-			while (!pq.empty()) {
-				pj = pq.remove();
-				pj.setWaitingTime(time - pj.getArrivalTime());
-				totalWaitingTime += pj.getWaitingTime();
-				if (maxWatingTime < pj.getWaitingTime()) {
-					maxWatingTime = pj.getWaitingTime();
-					maxMessage = "최대 대기 시간  : " + maxWatingTime + " (파일  " + pj.getId() + ")";
-				}
-				completedJob(pj);
-				if (!PrintJobs.isEmpty()) {
-					if (time >= PrintJobs.getFirst().getArrivalTime())
-						break;
-				}
-			}
-		}
-
-		private static void completedJob(PrintJob p) {
-			clockTicks(p.getSize());
-			writeReport(p);
-			NumOfCompleted++;
-		}
-
-		private static void writeReport(PrintJob p) {
-			BufferedWriter bw = null;
-			DecimalFormat df = new DecimalFormat("0.00");
-			df.setMinimumFractionDigits(2);
-			
-			try {
-				bw = new BufferedWriter(new FileWriter(outputFile, true));
-				bw.write("time = " + time + " (파일 " + p.getId() + ")");
-				bw.newLine();
-
-				// 리스트와 큐가 모두 비었으면(모든 작업의 출력이 끝났으면) 평균 대기시간과 최대 대기 시간을 출력
-				if (PrintJobs.getSize() == 0 && pq.empty()) {
-					bw.write("평균 대기 시간 : " + df.format(totalWaitingTime / NumOfCompleted));
-					bw.newLine();
-					bw.write(maxMessage);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					bw.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		public boolean checkavailability(int loc) { // 해당 장소에서 인쇄 가능한지 확인하는 함수
-			if (timePrintJobs1.getLocation() == loc) {
-				if (timePrintJobs1.getSize() >= 50) {
-					return false; // 인쇄 불가
-				} else
-					return true; // 인쇄 가능
-			} else if (timePrintJobs2.getLocation() == loc) {
-				if (timePrintJobs2.getSize() >= 50) {
-					return false; // 인쇄 불가
-				} else
-					return true; // 인쇄 가능
-			} else if (timePrintJobs3.getLocation() == loc) {
-				if (timePrintJobs3.getSize() >= 50) {
-					return false; // 인쇄 불가
-				} else
-					return true; // 인쇄 가능
-			} else
-				return false;
 		}
 	}
 

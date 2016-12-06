@@ -1,5 +1,3 @@
-package test;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -24,27 +22,35 @@ public class RunQueuing {
 	public static class Job {
 		public int id;
 		public int page_size;
-		Option option;
+		option_select option;
 
-		Job(int id, int size, Option option) {
+		Job(int id, int size, option_select option) {
 			this.id = id;
 			page_size = size;
 			this.option = option;
 		}
 	}
 
-	public static void Queuingjobs(Job job) {
+	public static void Queuingjobs() {
 		int i = 0;
-		int size = 10;
 
-		// Job job = new Job(i, size, new Option());
+		option_select os = new option_select();
+		os = database.database_get_option();
+		String[] file = new String[5];
+		file = database.database_get_fileName();
+		
+		os.fileName = file;
+		
+		Job job = new Job(i, database.database_page_total(), os);
 
+		q.add(job);
+		
 		while (!q.isEmpty()) {
 			Job m = q.poll();
 			SendToPrint(m);
-			System.out.println(m.page_size + " " + m.id);
+			System.out.println("page size : " + m.page_size + " id : " + m.id);
 		}
-	}
+	}//
 
 	public static void SendToPrint(Job job) {
 		int i = 0;
@@ -52,17 +58,17 @@ public class RunQueuing {
 		while (job.option.fileName[i] != null) {
 			String file_path = job.option.fileName[i++];
 
-			Print print = new Print();
+			print print = new print();
 			String tmp[] = new String[2];
 			tmp = file_path.split("\\.");
 
-			Timer(job.option.time);
+			//Timer(job.option.time);
 
 			if (tmp[1].equals("pdf")) { // pdf ¿Œº‚
-				print.print_pdf(file_path);
+				print.print_pdf(job.option);
 			} else { // jpg ¿Œº‚
 				try {
-					print.print_jpg(file_path);
+					print.print_image(job.option);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

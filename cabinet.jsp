@@ -2,10 +2,57 @@
     pageEncoding="EUC-KR"%>
 <%@page import= "java.sql.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html lang="en">
-<body>
-<jsp:include page="header.jsp" flush="true"/>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="YoonJiHyun">
+    <link rel="icon" href="../../favicon.ico">
+    <title>보관함</title>
+    <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="cabinet.css" rel="stylesheet">
+    <link href="bootstrap.css" rel="stylesheet">
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="admin.jsp">DAPOBA</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="admin.jsp">관리자 페이지</a></li>
+            <li><a href="cabinet.jsp">사물함 관리</a></li>
+            <li><a href="manage-payment.jsp">입금 관리</a></li>
+           
+            <!--li><a href="qna-board.html">고객센터</a></li-->
+            <!--li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li-->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
     <div class="container">
       <div class="row">
         <div class="col-md-4 col-md-offset-2">
@@ -18,6 +65,25 @@
   		Statement stmt;
   		ResultSet rs; 
   		String cabinet_loc="1";//빈에서 받아올예정
+  		
+  		String manager_id=(String)application.getAttribute("userid");
+  		try{
+  			Class.forName(driver); // Driver Loading
+			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
+			String sql = ""; //SQL문 
+			int count=1;
+			stmt = conn.createStatement(); 	// Statement 
+			sql="select name from dapoba_db.account where ID='"+ manager_id+"';";//고치기
+			rs = stmt.executeQuery(sql);// ResultSet //
+			while(rs.next())
+			{
+				//cabinet_loc=rs.getString("name");
+			}
+  		}
+  		catch(Exception e)
+  		{
+  			
+  		}
   		//캐비넷 위치에 어느 위치의 사물함인지 표시
   		application.setAttribute("cabinet_loc",cabinet_loc);
   		if(cabinet_loc.equals("1"))
@@ -32,7 +98,7 @@
   		out.print("<div class=\"col-md-3 search_box\">");
   		out.print("<form>");
   	    out.print("<input type=\"text\" name=\"keyword\"></input>");
-  	    out.print("<input type=\"submit\" value=\"입력\" class=\"btn1 btn-default btn-custom\"></input>");
+  	    out.print("<input type=\"submit\" name=\"input\" value=\"입력\" class=\"btn1 btn-default btn-custom\"></input>");
   	    out.print("</form>");
   	    out.print("</div>");
   		out.print("</div>");
@@ -46,7 +112,7 @@
 			String cabinetNumber="";
 			String cabinetPassword=(String) request.getParameter("keyword");
 			stmt = conn.createStatement(); 	// Statement 
-			sql="select cabinet_number from dapoba_db.cabinet where cabinet_password= '"+cabinetPassword+"' and cabinet_loc = '1';";//고치기
+			sql="select cabinet_number from dapoba_db.cabinet where cabinet_password= '"+cabinetPassword+"' and cabinet_loc = '"+cabinet_loc+"';";//고치기
 			rs = stmt.executeQuery(sql);// ResultSet //
 			if(rs.next())
 				{
@@ -56,11 +122,15 @@
 				}
 			else 
 			{
+				if(request.getParameter("input")!=null)
+				{
 				out.println("<script type='text/javascript'>");
 				out.println("alert('배정된 사물함이 없습니다.');");
 				out.println("</script>");
+				}
 			}
-			out.print("<form action=\"cabinet\" method=\"get\" enctype=\"multipart/form-data\">");
+			
+			out.print("<form action=\"cabinet_verinum.jsp\" method=\"get\" enctype=\"multipart/form-data\">");
 			for(count=1;count<=50;count++)
 			{
 				sql = "select cabinet_state, cabinet_password from dapoba_db.cabinet where cabinet_number='"+count+"' and cabinet_loc = '1';";
@@ -108,5 +178,10 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script>
+     function dataAdd(){
+       $('#myModal').modal('show');
+     }
+    </script>
   </body>
 </html>

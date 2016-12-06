@@ -16,8 +16,8 @@
             은행명 : <%= (String)request.getAttribute("bank") %> <br>
             입금 계좌 : <%= (String)request.getAttribute("accountNo") %><br>
             예금주 : <%= (String)request.getAttribute("holder") %><br>
-            입금 금액 : <%= (String)request.getAttribute("money") %><br><br><br>
-             <input type="button" value="확인" onclick = "location = 'main.html'"/>
+            입금 금액 : <%= (String)request.getAttribute("money") %>원<br><br><br>
+             <input type="button" value="확인" onclick = "location = 'main.jsp'"/>
            </div>
         </div>
       </div>

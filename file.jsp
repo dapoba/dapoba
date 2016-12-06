@@ -1,4 +1,4 @@
-ï»¿<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR" %>
     <%@page import= "java.sql.*"%>
 <!DOCTYPE html>
@@ -11,25 +11,12 @@
     <meta name="author" content="YoonJiHyun_KimHyunAh">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>ë¬¸ì„œí•¨</title>
+    <title>¹®¼­ÇÔ</title>
 
     <link href="bootstrap.css" rel="stylesheet">
     <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
     <link href="fileupload.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-    
-    <script language="javascript" type="text/javascript">Â 
-	function chkbox(){Â 
-   Â Â Â  var ele = document.form1.file_select;Â 
-   Â Â Â  var len = ele.length;Â 
-   Â Â Â  var vals='';Â 
-   Â Â Â  for(var i=0; i<len; i++){Â 
-      Â Â Â  Â Â Â  if( ele[i].checked) alert(ele[i].value);Â 
-   Â Â Â  }Â 
-   Â Â Â  //document.getElementById("result").innerHTML = "ì²´í¬í•œ ê°’ : "+vals;Â 
-	}Â 
-	
-		</script>Â 
   </head>
 
   <body>
@@ -38,10 +25,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-2">
-          <h4 class="margin-option">ë¬¸ì„œí•¨</h4>
+          <h4 class="margin-option">¹®¼­ÇÔ</h4>
         </div>
         <div class="col-md-6 col-md-offset-2 select-box">
-        <form action="FileManage" method="get" enctype="multipart/form-data">
         <%
         String driver = "com.mysql.jdbc.Driver"; 
     	String url = "jdbc:mysql://localhost:3306/?user=root"; 
@@ -54,39 +40,37 @@
 		{ 
 			Class.forName(driver); // Driver Loading 
 			conn = DriverManager.getConnection(url, userId, passwd);// Connection 
-			String sql = ""; // SQL ì‘ì„± 
-			String file_list="íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";//íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•Šì„ë•Œ ì¶œë ¥í•˜ê¸° ìœ„í•´ì„œ file_listì˜ ë””í´íŠ¸ë¥¼ ê²½ê³ ë¬¸êµ¬ë¡œ ì €ì¥í•œë‹¤.
+			String sql = ""; // SQL ÀÛ¼º 
+			String file_list="ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.";//ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾ÊÀ»¶§ Ãâ·ÂÇÏ±â À§ÇØ¼­ file_listÀÇ µğÆúÆ®¸¦ °æ°í¹®±¸·Î ÀúÀåÇÑ´Ù.
 			stmt = conn.createStatement(); 	// Statement 
 			sql = "select Filename, File_extension from dapoba_db.file where Account_Id='test1'";
 			rs = stmt.executeQuery(sql);// ResultSet 
+			out.print("<form action=\"FileManage\" method=\"post\" enctype=\"multipart/form-data\">");
 			while(rs.next()) 
 			{ 
 				file_list=rs.getString("Filename")+"."+rs.getString("file_extension");
-				out.print("<input type=\"checkbox\" name=\"file_select\" value= \""+file_list+"\"> <a href='File?file_name="+file_list+"'>"+file_list+"</a><br>");
+				out.print("<input type=\"checkbox\" name=\"file_select\" value= \""+file_list+"\"> <a href='FileManage?file_name="+file_list+"'>"+file_list+"</a><br>");
 			} 
+			out.print("<button class=\"btn btn-success upload-btn\" name=\"select_button\" value=\"print\">Ãâ·Â</button>");
+			out.print("</form>");
 			stmt.close(); 
 			conn.close(); // close
 		} 
 		catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }
         %>
-        <!-- ì²´í¬ë°•ìŠ¤ë¥¼ ì„ íƒí•œ ê²ƒë“¤ë§Œ íŒŒì¼ë¦¬ìŠ¤íŠ¸ì— ì €ì¥ë¨.  -->
-        <input type="button" id="resultbtn" value="result" onclick="chkbox();">Â 
-        </form>
         <div id="result"></div>
         </div>
         <div class="col-md-3 upload-box">
           <form action="FileManage" method="post" enctype="multipart/form-data">
 
-              <h5>íŒŒì¼ ì—…ë¡œë“œ</h5>
+              <h5>ÆÄÀÏ ¾÷·Îµå</h5>
               <input type="file" name="filename1" class="upload-hidden"><br>
 			  <input type="file" name="filename2" class="upload-hidden"><br>
 			  <input type="file" name="filename3" class="upload-hidden"><br>
 			  <input type="file" name="filename4" class="upload-hidden"><br>
 			  <input type="file" name="filename5" class="upload-hidden"><br>
             <br>
-            <button class="btn btn-primary upload-btn" name="select_button" value="upload">ì—…ë¡œë“œ</button>
-            <button class="btn btn-success upload-btn" name="select_button" value="print">ì¶œë ¥</button>
-            <progress class="display-none btn">0%</progress><br>
+            <button class="btn btn-primary upload-btn" name="select_button" value="upload" >¾÷·Îµå</button>
           </form>
         </div>
       </div>

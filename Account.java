@@ -1,4 +1,3 @@
-package dsa;
 
 public class Account {
 	private String name;

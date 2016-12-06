@@ -29,10 +29,10 @@
       </div>
       <div class="row">
         <div class="col-md-3 col-md-offset-3 box2 center-align">
-          <a href="find-id.html" class="btn1 btn-default btn-lg" id="custom_btn">　아이디 찾기　</a>
+          <a href="find-id.jsp" class="btn1 btn-default btn-lg" id="custom_btn">　아이디 찾기　</a>
         </div>
         <div class="col-md-3 box2 center-align">
-          <a href="find-pw.html" class="btn1 btn-default btn-lg" id="custom_btn">　비밀번호 찾기　</a>
+          <a href="find-pw.jsp" class="btn1 btn-default btn-lg" id="custom_btn">　비밀번호 찾기　</a>
         </div>
       </div>
       </div>

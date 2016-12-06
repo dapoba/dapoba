@@ -22,8 +22,17 @@ public class print_pdf extends HttpServlet {
 	public static void main(String args[])
 	{
 		try{
-			PDFPrint pdfPrint=new PDFPrint("C:\\Users\\HyunA\\Desktop\\a.pdf",null);
+			PDFPrint pdfPrint=new PDFPrint("C:\\Users\\HyunA\\Desktop\\cover.pdf",null);
 			pdfPrint.printToDefaultPrinter(new PrintSettings());
+			PDFPrint pdfPrint=new PDFPrint("C:\\Users\\HyunA\\Desktop\\Bill_test1.pdf",null);
+			pdfPrint.printToDefaultPrinter(new PrintSettings());
+			PDFPrint pdfPrint=new PDFPrint("C:\\Users\\HyunA\\Desktop\\4WeekNote.pdf",null);
+			pdfPrint.printToDefaultPrinter(new PrintSettings());
+			PDFPrint pdfPrint=new PDFPrint("C:\\Users\\HyunA\\Desktop\\5WeekNote.pdf",null);
+			pdfPrint.printToDefaultPrinter(new PrintSettings());
+			PDFPrint pdfPrint=new PDFPrint("C:\\Users\\HyunA\\Desktop\\9WeekNote.pdf",null);
+			pdfPrint.printToDefaultPrinter(new PrintSettings());
+
 		}
 		catch(PDFException e)
 		{

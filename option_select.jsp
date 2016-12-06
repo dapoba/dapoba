@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
 
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="YoonJiHyun">
@@ -17,11 +17,6 @@
     <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
     <link href="option-select.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-    <script>
-      function rbclick(button){
-          alert(button.value+"클릭")
-      }
-    </script>
   </head>
 
   <body>
@@ -51,7 +46,7 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
+<form action="option_select" method="post" enctype="multipart/form-data">
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-2">
@@ -59,58 +54,61 @@
         </div>
         <div class="col-md-4 col-md-offset-2">
           <div class="select-box select-place">
-          <form action="Option" method="post" enctype="multipart/form-data">
             <div><b>출력장소 선택</b></div>
-            <lable class="radio-inline" id="radio-design">
-              <input type="radio" name="option_place" id="option_new_engineering_building" value="1" checked="checked">
+         
+            <label class="radio-inline" id="radio-design">
+            
+              <input type="radio" name="option_place" id="option_new_engineering_building" value="1" checked="checked"/>
               신공학관
-            </lable>
-            <lable class="radio-inline" id="radio-design">
-              <input type="radio" name="option_place" id="option_hyehwa" value="2">
+            </label>
+            <label class="radio-inline" id="radio-design">
+              <input type="radio" name="option_place" id="option_hyehwa" value="2"/>
               혜화관
-            </lable>
-            <lable class="radio-inline" id="radio-design">
-              <input type="radio" name="option_place" id="option_myeongjin" value="3">
+            </label>
+            <label class="radio-inline" id="radio-design">
+              <input type="radio" name="option_place" id="option_myeongjin" value="3"/>
               명진관
-            </lable>
-            <a href="#" class="btn1 btn-custom btn-xs" name="check_button" value="check_loc">가능 확인</a>
-          </div>
+            </label>
+             <button class="btn btn-primary upload-btn" name="check_button" value="check">가능확인</button>
+            
+             </div>
+      
           <div class="select-box">
           <div><b>색상 선택</b></div>
-            <lable class="radio-inline" id="radio-design">
-              <input type="radio" name="option_color_or_black" id="option_black" value="option_black" checked="checked">
+            <label class="radio-inline" id="radio-design">
+              <input type="radio" name="option_color_or_black" id="option_black" value="1" checked="checked">
               흑백
-            </lable>
-            <lable class="radio-inline" id="radio-design">
-              <input type="radio" name="option_color_or_black" id="option_color" value="option_color" onclick="rbclick(this)">
+            </label>
+            <label class="radio-inline" id="radio-design" >
+              <input type="radio" name="option_color_or_black" id="option_color" value="2" >
               컬러
-            </lable>
+            </label>
           </div>
           <div class="select-box">
             <div><b>분할 선택</b></div>
-            <lable class="radio-inline" id="radio-design">
-              <input type="radio" name="option_split" id="option_split_no" value="option_split_no" checked="checked">
+            <label class="radio-inline" id="radio-design">
+              <input type="radio" name="option_split" id="option_split_no" value="1" checked="checked">
               분할없음
-            </lable>
-            <lable class="radio-inline" id="radio-design">
-              <input type="radio" name="option_split" id="option_split_2" value="option_split_2">
+            </label>
+            <label class="radio-inline" id="radio-design">
+              <input type="radio" name="option_split" id="option_split_2" value="2">
               2분할
-            </lable>
-            <lable class="radio-inline" id="radio-design">
-              <input type="radio" name="option_split" id="option_split_4" value="option_split_4">
+            </label>
+            <label class="radio-inline" id="radio-design">
+              <input type="radio" name="option_split" id="option_split_4" value="4">
               4분할
-            </lable>
+            </label>
           </div>
           <div class="select-box">
             <div><b>표지 선택</b></div>
-            <lable class="radio-inline" id="radio-design">
-              <input type="radio" name="option_cover" id="option_add_cover" value="option_add_cover" >
+            <label class="radio-inline" id="radio-design">
+              <input type="radio" name="option_cover" id="option_add_cover" value="1" >
               표지 추가 O
-            </lable>
-            <lable class="radio-inline" id="radio-design">
-              <input type="radio" name="option_cover" id="option_no_cover" value="option_no_cover" checked="checked">
+            </label>
+            <label class="radio-inline" id="radio-design">
+              <input type="radio" name="option_cover" id="option_no_cover" value="0" checked="checked">
               표지 추가 X
-            </lable>
+            </label>
           </div>
           <div class="select-box">
             <div><b>예약 시간</b></div>
@@ -125,20 +123,20 @@
               <option value="16">16:00 </option>
               <option value="17">17:00 </option>
               <option value="18">18:00 </option>
+              <option value="19">19:00 </option>
+              <option value="20">20:00 </option>
+              <option value="21">21:00 </option>
+              <option value="22">22:00 </option>
+              <option value="23">23:00 </option>
+              <option value="24">24:00 </option>
             </select>
           </div>
-          </form>
+           <button class="btn btn-primary upload-btn" name="check_button" value="pay" >결<a href="payment-info.jsp" value="pay">결제</a>제</button>
         </div>
-        <div class="col-md-4 option_preview">
-          <div class="upload-box">
-            <form class="" action="" method="multipart/form-data">
-              <input type="file" id="ex_filename" class="upload-hidden">
-            </form>
-          </div>
-          <input type="submit" href="payment-info.html" class="btn1 btn-custom btn-big" onclick="dataAdd()" value="결제"></a>
-        </div>
+         
       </div><!-- /container -->
-
+</div>
+</form>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -147,10 +145,5 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
-    <script>
-       function dataAdd(){
-         $('#myModal').modal('show');
-       }
-    </script>
   </body>
 </html>

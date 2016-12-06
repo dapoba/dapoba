@@ -26,14 +26,15 @@
       <div class="row">
         <div class="col-md-6 col-md-offset-3 input-box">
           <h6><b>이름과 휴대폰번호를 입력해주세요.</b></h6>
-          <form action ="id_Find" id="opt_margin"><br><br>
+          <form action ="findID" id="opt_margin" method="post" enctype="multipart/form-data"><br><br>
             <div class="form-group">
               <label for="inputName" class="col-md-3">이름</label>
               <input type="text" name = "name" id="inputName" class="col-md-6" required></input>　　
             </div><br>
             <div class="form-group">
               <label for="inputPhone" class="col-md-3">휴대폰번호</label>
-              <input type="text" name = "phone_number" id="inputPhone" class="col-md-6" required></input><br>
+              <input type="text" name = "phone_number" id="inputPhone" class="col-md-6" required></input><br><br>
+              　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
  				<button type="submit" class="btn1" id="custom_btn">입력 완료</button>
             </div>
           </form>

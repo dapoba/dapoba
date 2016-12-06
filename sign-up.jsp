@@ -18,7 +18,7 @@
 
   <body>
     <div class="container">
-      <form action = "sign-up" class="form-horizontal col-md-6 col-md-offset-3 well sign-in-form-box">
+      <form action = "signUp" method="post" enctype="multipart/form-data" class="form-horizontal col-md-6 col-md-offset-3 well sign-in-form-box">
         <fieldset>
           <legend>회원가입</legend>
           아래의 양식을 모두 작성해주세요.<br><br>
@@ -26,9 +26,6 @@
             <label for="inputID" class="col-md-2 control-label">아이디</label>
             <div class="col-md-8">
               <input type="text" class="form-control" name = "id" id="inputID" placeholder="ID" required>
-            </div>
-            <div class="col-md-2">
-              <button type="submit" class="btn btn-default btn-sm">check</button>
             </div>
           </div>
           <div class="form-group">
@@ -70,7 +67,7 @@
           <div class="form-group">
             <div class="col-md-8 col-md-offset-2">
               <button type="reset" class="btn btn-default">취소</button>
-              <button type="submit" class="btn btn-primary">가입</button>
+              <button  class="btn btn-primary" name="check_button" value="sign">가입</button>
             </div>
           </div>
         </fieldset>

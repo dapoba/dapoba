@@ -1,0 +1,34 @@
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+.cabinet-box {
+  background-color: rgba(234,234,234,0.50);
+  height: 70px;
+  width: 80px;
+  border: 5px double rgba(213,213,213,0.75);
+  margin-bottom: -5px;
+  margin-right: -5px;
+  font-size: 26px;
+  text-align: center;
+  vertical-align: middle;
+}
+.cabinet-box:hover {
+  background-color: #FF6C6C;
+  border: 5px double #FF6C6C;
+  z-index: 1;
+  font-size: 30px;
+}
+.margin-bottom {
+    margin-bottom: 70px;
+}
+.search_box{
+  border: 0px solid #000000;
+  margin-top: 55px;
+  margin-left: 80px;
+}
+html{
+	font-family: 'Jeju Gothic', sans-serif;
+}
+#box{
+	width:200px;
+	text-align:center;
+	  border: 2px solid rgba(213,213,213,0.75);
+}

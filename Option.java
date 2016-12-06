@@ -1,4 +1,3 @@
-package test;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -18,9 +17,9 @@ public class Option extends HttpServlet {
        public String cover="";//1이면 표지 뽑고 아니면 뽑지 않기 
        public String time="";//예약 시간 
        public String loc="";//뽑을 위치의 고유 번호
-       public String fileName[]=new String[20];
+       public String fileName[]=new String[5];
        public boolean check_flag=false;
-       Order send_order=new Order();
+       //Order send_order=new Order();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -30,21 +29,23 @@ public class Option extends HttpServlet {
     }
     
     //지정한 장소에서 프린터를 할 수 있는지의 여부에 따라 경고창을 띄운다.
-    public void select_place(String location,HttpServletResponse response)
+    public void select_place(String location,HttpServletResponse response) throws IOException
     {
     	PrintWriter out = null;
 		out = response.getWriter();
-    	RunQueuing.Algorithm printer_queue=new RunQueuing.Algorithm();
-    	if(RunQueuing.Algorithm.checkavailability(Integer.parseInt(location))!=true)
+		check_flag=true;
+		out.println("df");
+    	//RunQueuing.Algorithm printer_queue=new RunQueuing.Algorithm();
+    	/*if(RunQueuing.Algorithm.checkavailability(Integer.parseInt(location))!=true)
     		{
     			out.println("<script type='text/javascript'>");
     			out.println("alert('예약이 꽉 찼습니다. : \n');");
     			out.println("history.back();");
     			out.println("</script>");
     		}
-    	else loc=location;//option 객체의 멤버변수에 location 저장함.
+    	else loc=location;//option 객체의 멤버변수에 location 저장함.*/
     }
-    public void select_option(String option[],HttpServletResponse response)
+    public void select_option(String option[],HttpServletResponse response) throws IOException
     {
     	PrintWriter out = null;
 		out = response.getWriter();
@@ -79,7 +80,7 @@ public class Option extends HttpServlet {
     				i++;
     			fileName[i]="cover.pdf";//서버에 지정된 커버파일의 파일명을 저장함
     		}
-    		send_order.send_option(send_option);
+    		//send_order.send_option(send_option);
     	}
     }
     public boolean check_time(String time)
@@ -107,23 +108,22 @@ public class Option extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		request.setCharacterEncoding("EUC-KR");
+		response.setContentType("text/html; charset=EUC-KR");
 		PrintWriter out = null;
 		out = response.getWriter();
 		String location="";
-		location=request.getParameter("option_place");//뽑을 위치의 고유번호
-		String option[]=new String[5];
-		color=request.getParameter("option_color_or_black");//1이라면 컬러, 0이면 흑백임
-	    seperate=request.getParameter("option_split"); //기본은 1임. 
-	    cover=request.getParameter("option_cover");//1이면 표지 뽑고 아니면 뽑지 않기 
-	    time=request.getParameter("select");//예약 시간 
-	    //값 받아오기
-	    option[0]=color;
-	    option[1]=seperate;
-	    option[2]=cover;
-	    option[3]=time;
 	    //지정된 장소가 가능한지 확인
-		select_place(location, response);
+		out.print(request.getParameter("option_place"));
+		
+	    String re="";
+	    re=request.getParameter("bt");
+	    out.print(re);
+	    
+	    if(request.getParameter("bt")==null)
+	    	{out.print("ddddd");}//select_place(location, response);}
+	    else out.print("df");
+	    /*
 		if(check_flag==true)
 		//지정된 장소가 가능하다면 다음 option선택을 처리함.
 			select_option(option,response);
@@ -134,6 +134,6 @@ public class Option extends HttpServlet {
 			out.println("history.back();");
 			out.println("</script>");
 			response.sendRedirect("option_select.jsp");
-		}
+		}*/
 	}
 }

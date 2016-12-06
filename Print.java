@@ -1,4 +1,4 @@
-package test;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.print.PrinterException;
 
 import com.qoppa.pdf.PDFException;
-
+import com.qoppa.pdf.PrintListener;
 import com.qoppa.pdf.PrintSettings;
 
 import com.qoppa.pdfPrint.PDFPrint;
@@ -51,19 +51,22 @@ import com.qoppa.pdfPrint.PDFPrint;
 
 @WebServlet("/print")
 
-public class Print extends HttpServlet {
+public class print extends HttpServlet {
 
 	String print_file_path;
-	public void print_pdf(Option option){
+	public void print_pdf(option_select option){
 		try{
 			int i=0;
 			while(option.fileName[i]!=null)
 			{
-				print_file_path="C\\file\\"+option.fileName[i];
+				print_file_path="C:\\Users\\HyunA\\Desktop\\"+option.fileName[i];
 				PDFPrint pdfPrint=new PDFPrint(print_file_path,null);//지정한 파일이 인쇄가 된다. 
-				pdfPrint.print("IP주소", new PrintSettings());//지정 IP로 출력할 수 있음. 
+				//pdfPrint.printToDefaultPrinter(null);
+				pdfPrint.print("EPSON444744 (L365 Series)", new PrintSettings());//지정 IP로 출력할 수 있음. 
 				i++;
+			//	PrintListener pdf=new PrinterListenser();
 			}
+			
 		}
 		
 		catch(PDFException e)
@@ -78,7 +81,7 @@ public class Print extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Print() {
+    public print() {
         super();
     }
 
@@ -87,7 +90,7 @@ public class Print extends HttpServlet {
 	 * jpg,png등의 이미파일의 인쇄를 지원하는 메소드
 	 * 오픈소스를 이용했음을 명시합니다.
 	 */
-	public void print_image(Option option) throws IOException {
+	public void print_image(option_select option) throws IOException {
 	    // These are values we'll set from the command-line arguments
 	    boolean query = false;
 	    String printerName = "EPSON444744 (L365 Series)";
@@ -95,6 +98,7 @@ public class Print extends HttpServlet {
 	    String outputFileName = null;
 	    String outputFileType = null;
 	    PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
+	    System.out.println("dddd");
 	    String args[]=new String[4];
 	    //attributes.add(new NumberUp(2));
 	    // Loop through the arguments
@@ -171,8 +175,7 @@ public class Print extends HttpServlet {
 	    }
 	  }
 
-	  public static void print(String printerName, String filename, PrintRequestAttributeSet attributes)
-	      throws IOException {
+	  public static void print(String printerName, String filename, PrintRequestAttributeSet attributes) throws IOException {
 	    PrintService service = getNamedPrinter(printerName, attributes);
 	    if (service == null) {
 	       return;

@@ -1,8 +1,6 @@
 import java.io.*;
-
-public class SendSMS{
-
-    public SendSMS(String number, String content){
+public class SendSMS {
+	public SendSMS(String number, String content){
 
         SMS sms = new SMS();
 

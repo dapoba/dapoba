@@ -17,15 +17,15 @@
 
   <body>
     <div class="container">
-      <form action ="log_In" id="opt_margin">
+    
+      <form action ="login" id="opt_margin" method="post" enctype="multipart/form-data" class="form-login">
         <h2 class="form-login-heading">
           DAPOBA
           <img src="img/icon/printer-1.png" class="main-logo" width="70px" height="70px">
         </h2>
         <label for="inputID" class="sr-only">ID</label>
         <input type="text" name="id" id="inputID" class="form-control" placeholder="ID" required autofocus>
-		  <% String id =(String)request.getAttribute("id");
-        	application.setAttribute("userid",id); %>
+		  
 		
         <label for="inputPassword" class="sr-only">Password</label>
         
@@ -37,9 +37,14 @@
             <input type="checkbox" value="remember-me"> ID/Password 기억하기
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
-        <button class="btn not-hover" type="button" onClick="goReplace('find.jsp')">ID/Password 찾기</button>
-        <button class="btn not-hover" type="button" onClick="goReplace('Sign-in.jsp')">회원가입</button>
+        <button class="btn btn-lg btn-primary btn-block" >로그인</button>
+        <% 
+		  String id =(String)request.getAttribute("id");
+        	application.setAttribute("userid",id); 
+        	System.out.println((String)application.getAttribute("userid"));
+        	%>
+        <button class="btn not-hover" type="button" onClick="location.href='find.jsp'">ID/Password 찾기</button>
+        <button class="btn not-hover" type="button" onClick="location.href='sign-up.jsp'">회원가입</button>
         
       </form>
     </div> <!-- /container -->

@@ -1,0 +1,28 @@
+.box2 {
+  margin-top: 70px;
+  border-top: 1px solid #CFCFCF;
+  border-bottom: 1px solid #CFCFCF;
+  padding:30px 50px;
+  text-align: center;
+  font-size: 18px;
+  height: 130px;
+  vertical-align: middle;
+  display:table-cell;
+}
+#custom_btn {
+  border: 1px solid rgba(234,234,234,1);
+  background-color: rgba(234,234,234,0.6);
+  display:inline-block;
+}
+.input-box {
+  margin-top: 30px;
+  border: 1px solid rgba(234,234,234,1);
+  padding: 25px;
+  height: 275px;
+}
+.input-box2 {
+  margin-top: 30px;
+  border: 1px solid rgba(234,234,234,1);
+  padding: 25px;
+  height: 350px;
+}

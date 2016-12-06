@@ -1,5 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" import = "java.util.*"%>
+    pageEncoding="EUC-KR" import = "java.util.*, java.sql.*, java.util.Date, java.text.SimpleDateFormat"%>
+ <% 
+String driver = "com.mysql.jdbc.Driver"; 
+String url = "jdbc:mysql://localhost:3306/?user=root";
+String userId = "root";
+String passwd = "1234";
+Connection conn;
+Statement stmt;
+ResultSet rs;
+Vector <String> id = new Vector<String>();
+Vector <String> name = new Vector<String>();
+Vector <String> deposit = new Vector<String>();
+Vector <String> money = new Vector<String>();
+try{
+	Class.forName(driver); // Driver Loading
+   conn = DriverManager.getConnection(url, userId, passwd); // Connection
+   		   
+   stmt = conn.createStatement();
+	String sql = "USE Dapoba_db";
+	
+	stmt.execute(sql);
+	
+	sql = "select *from cashList where ID = 'test1'";
+	rs = stmt.executeQuery(sql);
+	while(rs.next()){
+		id.add(rs.getString("ID"));
+		name.add(rs.getString("Name"));
+		deposit.add(rs.getString("deposit"));
+		money.add(rs.getString("money"));
+	}	
+	stmt.close(); 
+	conn.close(); // close
+}
+catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang = "en">
 <head>
@@ -50,6 +83,43 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+    <script>
+function chk(){
+	<% 
+	try{
+		Class.forName(driver); // Driver Loading
+	   conn = DriverManager.getConnection(url, userId, passwd); // Connection
+	   		   
+	   stmt = conn.createStatement();
+		String sql = "USE Dapoba_db";
+		stmt.execute(sql);
+		
+		sql = "update cashList set deposit ='0' Where ID = 'test1'";
+		stmt.executeUpdate(sql);
+		
+		sql = "select *from cashList Where ID = 'test1'";
+		rs = stmt.executeQuery(sql);
+		rs.next();
+		int pay = rs.getInt("money");
+		pay = pay/2;
+		
+		sql = "select *from Mileage_Coin where ID = 'test1'";
+		rs = stmt.executeQuery(sql);
+		rs.next();
+		int coin = rs.getInt("Coin");
+		int result = coin + pay;
+		
+		sql = "update Mileage_Coin set Coin = '" + String.valueOf(result) + "' Where ID = 'test1'";
+		stmt.executeUpdate(sql);
+
+		stmt.close(); 
+		conn.close(); // close
+	}
+	catch(ClassNotFoundException | SQLException e) { e.printStackTrace(); }%>
+	alert('입금 확인을 완료하였습니다.');
+	location.href='manage-payment.jsp';
+}
+</script>
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-2">
@@ -77,7 +147,6 @@
             <div class="col-md-3 payment_box2">
               <div class="list">
                <%
-            Vector id = (Vector)request.getAttribute("id");
             for(int i = 0; i <id.size(); i++){ %>
             	<%= id.get(i) %><br>
             <% } %>
@@ -85,8 +154,7 @@
             </div>
             <div class="col-md-3 payment_box2">
               <div class="list">
-              <%
-            Vector name = (Vector)request.getAttribute("name");
+          <%
             for(int i = 0; i <name.size(); i++){ %>
             	<%= name.get(i) %><br>
             <% } %>
@@ -94,27 +162,27 @@
             </div>
             <div class="col-md-3 payment_box2">
               <div class="list">
-              <%
-            Vector money = (Vector)request.getAttribute("money");
+            <%
             for(int i = 0; i <money.size(); i++){ %>
             	<%= money.get(i) %><br>
             <% } %>
               </div>
             </div>
-            <form mothod = "POST" action = "Milege_Coin">
+
             <div class="col-md-3 payment_box2">
-            <%
-            Vector confirm = (Vector)request.getAttribute("confirm");
-            for(int i = 0; i <confirm.size(); i++){ 
-            	 if(confirm.get(i).equals("1")){	//입금 미확인%>
-          	<button name = "confirmPayment" value = "<%=id.get(i) %>" class="btn1 btn-default btn-sm" id ="custom_btn">확인</button>          	 
-            	 <%}
-            	 else if(confirm.get(i).equals("0")){	//입금 확인 %>
-            	     완료<br>
-             	<%} 
-             }%>
+            <div class="list">
+             <%
+            for(int i = 0; i <deposit.size(); i++){ 
+            if(deposit.get(i).equals("1")){ %>
+              <button  name = "confirmPayment"class="btn1 btn-default btn-sm" id ="custom_btn" onclick = "chk()" >확인</button><br>
+    			<%}
+            else if(deposit.get(i).equals("0")){%>
+            완료<br>
+            <%} %>
+            <% } %>
+      		</div>
             </div>
-            </form>
+           
           </div>
         </div>
       </div>

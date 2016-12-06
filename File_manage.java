@@ -1,4 +1,3 @@
-package test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,7 +20,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
  */
 @WebServlet("/FileManage")
 //업로드할 파일의 경로와 제한 크기를 지정함. 경로는 임의로 지정함. 
-@MultipartConfig(maxFileSize=1024*1024*2, location="C:\\file")
+@MultipartConfig(maxFileSize=1024*1024*2, location="C:\\Users\\HyunA\\Desktop\\Eclipse\\SE\\WebContent\\file_storage\\")
 public class File_manage extends HttpServlet {
 	public String []file_list=new String[5];
 	public String[]filename=new String [5];
@@ -31,17 +30,47 @@ public class File_manage extends HttpServlet {
 	
 	public void select_file(String[] print_file,HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException
 	{
+		PrintWriter out =null;
+		out=response.getWriter();
 		int i=0;
-		//Option클래스 생성
-		Option file_option=new Option();
-		while(true)
+		//Option_select클래스 생성
+		String file__name[]=new String[5];
+		String file__extension[]=new String [5];
+		option_select file_option=new option_select();
+		for(i=0;i<print_file.length;i++)
 		{
-			//파일 이름이 비었으면 더이상 list가 없는 것이므로 while문을 빠져나간다.
-			if(print_file[i]==null)
-				break;
+			String page_no;
+			String[] file_name=print_file[i].split("\\.");
+			//System.out.println(pdfPng);
+			//String ID=customer.getID();
+			file__name[i]=file_name[0];
+			file__extension[i]=file_name[1];
+			//print print_pdf=new print();
+			//option_select option = new option_select();
+			//option.fileName[0]=print_file[0];
+			//print_pdf.print_pdf(option);
+			
+			database.database_use();
+			database.stmt=database.conn.createStatement();
+			String sql="Use dapoba_db"; 
+			database.stmt.execute(sql);
+			sql="select file_page_no from dapoba_db.file where filename='"+file__name[i]+"'"; 		
+			//System.out.println(sql);
+			if(sql!=null)
+				database.rs=database.stmt.executeQuery(sql);
+			database.rs.next();
+			page_no=database.rs.getString("file_page_no");
+			sql="insert into dapoba_db.file values('"+file__name[i]+"', '"+file__extension[i]+"', '"+page_no+"', 'execute');";
+			database.stmt.execute(sql);
+			database.stmt.close(); 
+			database.conn.close(); // close
+			//out.println(i);
+			//out.print(print_file[i]+"d");
+			//파일 이름이 비었으면 더이상 list가 없는 것이므로 while문을 빠져
 			//option객체의 파일리스트에 매개변수로 받은 파일 리스트를 저장한다. 
 			file_option.fileName[i]=print_file[i];
-			i++;//다음 파일 이름으로 이동함.
+			//System.out.println(file_option.fileName[0]);
+			//i++;//다음 파일 이름으로 이동함.
 		}
 		file_option.doGet(request, response);
 	}
@@ -49,24 +78,38 @@ public class File_manage extends HttpServlet {
 	/*
 	 * 매개변수로 받은 fileName에 저장된 파일들을 데이터베이스에 저장하는 메소드입니다.
 	 */
-	private void store_file(String[] file_list) throws SQLException
+	private void store_file(String[] file_list) throws SQLException, NullPointerException
 	{
 		String file_path="";
 		for(int i=0;i<5;i++)
 		{
-			file_path="C:\\file\\"+file_list[i];
+			file_path="C:\\Users\\HyunA\\Desktop\\Eclipse\\SE\\WebContent\\file_storage\\"+file_list[i];
+			if(file_list[i]==null||file_list[i].equals(""))
+				break;
 			if(!file_list[i].equals(" "))
 			{
-				int pdfPng=extractPagesAsImage(file_path, 300, "");//저장할 pdf파일의 장수를 저장=>인쇄 결제시 필요
-				String[] file_name=file_list[i].split(".");
+				int pdfPng=extractPagesAsImage(file_path, 300, " ");//저장할 pdf파일의 장수를 저장=>인쇄 결제시 필요
+				String[] file_name=file_list[i].split("\\.");
+				//System.out.println(pdfPng);
+				//String ID=customer.getID();
+				String ID="test1";
 				filename[i]=file_name[0];
 				file_extension[i]=file_name[1];
-				System.out.println(pdfPng+file_name[0]+file_name[1]);
-				db.database_use();
-				String sql="insert into dapoba_db.file (Filename, File_extension, File_page_no, Account_ID) values " + "('"+file_name[0]+"' ,'"+file_name[1]+"', '"+pdfPng+"', 'test1');"; 		
-				db.stmt.execute(sql);
-				db.stmt.close(); 
-				db.conn.close(); // close
+				//System.out.println(pdfPng+file_name[0]+file_name[1]);
+				
+				if(file_name[0]!=null&&file_name[1]!=null&&pdfPng!=0)
+				{
+					database.database_use();
+					database.stmt=database.conn.createStatement();
+					String sql="Use dapoba_db"; 
+					database.stmt.execute(sql);
+					sql="insert into dapoba_db.file values ('"+file_name[0]+"','"+file_name[1]+"', '"+pdfPng+"','test1');"; 		
+					System.out.println(sql);
+					if(sql!=null)
+						database.stmt.execute(sql);
+					database.stmt.close(); 
+					database.conn.close(); // close
+				}
 			}
 		}
 		
@@ -76,17 +119,17 @@ public class File_manage extends HttpServlet {
 	 * pdf파일의 장수를 세주는 메소드입니다.
 	 * 오픈소스를 참고했음을 명시합니다.
 	 */
-	public static int extractPagesAsImage(String sourceFile, int resolution, String password) {
-        boolean result = false;
+	public int extractPagesAsImage(String sourceFile, int resolution, String password) {
 
         int pdfPageCn = 0;
+        System.out.println(sourceFile);
         PDDocument pdfDoc = null;
         try {
-            //PDF파일 정보 취득
             pdfDoc = PDDocument.load(new File(sourceFile));
             pdfPageCn = pdfDoc.getNumberOfPages();
+            System.out.print(pdfPageCn);
 
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
         	
         }
         return pdfPageCn;
@@ -131,8 +174,8 @@ public class File_manage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String fileName=request.getParameter("file_name");
-		String DownloadPath="C:\\file\\";//파일의 위치 지정
-		String sFilePath=DownloadPath+"test1\\"+fileName;//String sFilePath= sDownloadPath+customer.get_id()+"\\"+fileName;
+		String DownloadPath="C:\\Users\\HyunA\\Desktop\\Eclipse\\SE\\WebContent\\file_storage\\";//파일의 위치 지정
+		String sFilePath=DownloadPath+fileName;//String sFilePath= sDownloadPath+customer.get_id()+"\\"+fileName;
 		byte b[]= new byte[4096];
 		FileInputStream in = new FileInputStream(sFilePath);
 		String sMimeType= getServletContext().getMimeType(sFilePath);
@@ -197,7 +240,11 @@ public class File_manage extends HttpServlet {
 		//초기화
 		String button_value="";
 		String print_file[]=new String[5];
+		for(int i=0;i<5;i++)
+			print_file[i]=" ";
+	
 		button_value=request.getParameter("select_button");
+		
 		//초기화
 		Part part1 = null;
 		Part part2 = null;
@@ -272,6 +319,7 @@ public class File_manage extends HttpServlet {
 				e1.printStackTrace();
 			}
 		//예외발생
+		
 		PrintWriter out = null;
 		try {
 			out = response.getWriter();
@@ -307,7 +355,15 @@ public class File_manage extends HttpServlet {
 		}//이전 화면으로 돌아가기 
 		else if(button_value.equals("print"))
 		{
+			PrintWriter out = null;
+			try {
+				out = response.getWriter();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				errorMessage(e,response);
+			}
 			print_file=request.getParameterValues("file_select");
+			
 			try {
 				select_file(print_file, request, response);
 			} catch (SQLException e) {

@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-md-6 col-md-offset-3 input-box2">
           <h6><b>아이디와 이름, 휴대폰번호를 입력해주세요.</b></h6>
-          <form action ="pw_Find" id="opt_margin"><br><br>
+          <form action ="findPW" id="opt_margin" method="post"><br><br>
             <div class="form-group">
               <label for="inputID" class="col-md-3">아이디</label>
               <input type="text" name = "ID" id="inputID" class="col-md-6" required></input>　　
@@ -38,7 +38,7 @@
             <div class="form-group">
               <label for="inputPhone" class="col-md-3">휴대폰번호</label>
               <input type="text" name = "phone_number" id="inputPhone" class="col-md-6" required></input>
-              <button type="submit" class="btn1" id="custom_btn">입력 완료</button>
+              　　<button type="submit" class="btn1" id="custom_btn">입력 완료</button>
 
             </div>
           </form>
